@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+/* ── Lotus Design System Tokens ─────────────────────────────── */
+
+:root {
+  --bg: #FAF7F2;
+  --surface: #F5F1E8;
+  --border: #E0D8CA;
+  --border-dark: #C8BBA5;
+  --text: #3D2E1E;
+  --text-dim: #7A6045;
+  --text-muted: #A89070;
+  --tan: #D4C9B0;
+  --accent: #B5703A;
+  --accent-light: #D4944E;
+  --accent-pale: #FAF0E6;
+  --green: #2D4A35;
+  --green-mid: #3D6348;
+  --green-pale: #EAF2EC;
+  --red: #A63D3D;
+  --red-pale: rgba(166, 61, 61, 0.09);
+  --footer-bg: #1A1A18;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-border-dark: var(--border-dark);
+  --color-text: var(--text);
+  --color-text-dim: var(--text-dim);
+  --color-text-muted: var(--text-muted);
+  --color-tan: var(--tan);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-pale: var(--accent-pale);
+  --color-green: var(--green);
+  --color-green-mid: var(--green-mid);
+  --color-green-pale: var(--green-pale);
+  --color-red: var(--red);
+  --color-red-pale: var(--red-pale);
+  --color-footer-bg: var(--footer-bg);
+  --font-cormorant: var(--font-cormorant-garamond);
+  --font-syne: var(--font-syne);
+  --font-jost: var(--font-jost);
+}
+
+/* ── Base styles ─────────────────────────────────────────────── */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-jost), sans-serif;
+  min-height: 100vh;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C8BBA5;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A09890;
+}
