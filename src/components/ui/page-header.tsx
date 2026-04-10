@@ -14,7 +14,19 @@ export function PageHeader({ title, actions }: PageHeaderProps) {
   });
 
   return (
-    <div className="flex items-center justify-between flex-wrap gap-3 pt-5 pb-4 md:pt-8 md:pb-5 border-b border-border mb-6 md:mb-8">
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: 12,
+        paddingTop: 28,
+        paddingBottom: 16,
+        borderBottom: "1px solid var(--border)",
+        marginBottom: 28,
+      }}
+    >
       <div>
         <h1
           style={{
