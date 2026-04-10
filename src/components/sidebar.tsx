@@ -33,8 +33,8 @@ export function Sidebar({
       style={{
         width: 248,
         minHeight: "100vh",
-        background: "var(--surface)",
-        borderRight: "1px solid var(--border)",
+        background: "var(--green)",
+        borderRight: "1px solid rgba(255,255,255,0.08)",
         display: "flex",
         flexDirection: "column",
         flexShrink: 0,
@@ -49,7 +49,7 @@ export function Sidebar({
             fontWeight: 600,
             letterSpacing: "0.15em",
             textTransform: "uppercase",
-            color: "var(--text)",
+            color: "#FFFFFF",
           }}
         >
           Lotus Ops
@@ -61,7 +61,7 @@ export function Sidebar({
             fontWeight: 400,
             letterSpacing: "0.15em",
             textTransform: "uppercase",
-            color: "var(--text-muted)",
+            color: "rgba(255,255,255,0.5)",
             marginTop: 2,
           }}
         >
@@ -73,7 +73,7 @@ export function Sidebar({
       <div
         style={{
           height: 1,
-          background: "rgba(61, 46, 30, 0.10)",
+          background: "rgba(255,255,255,0.10)",
           margin: "0 12px",
         }}
       />
@@ -96,11 +96,11 @@ export function Sidebar({
                   alignItems: "center",
                   padding: "7px 12px",
                   borderRadius: 100,
-                  background: isActive ? "var(--green)" : "transparent",
-                  color: isActive ? "var(--bg)" : "var(--text-muted)",
+                  background: isActive ? "rgba(255,255,255,0.15)" : "transparent",
+                  color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.55)",
                   fontFamily: "var(--font-syne)",
                   fontSize: "0.62rem",
-                  fontWeight: 500,
+                  fontWeight: isActive ? 700 : 500,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
                   textDecoration: "none",
@@ -119,7 +119,7 @@ export function Sidebar({
       <div
         style={{
           height: 1,
-          background: "rgba(61, 46, 30, 0.10)",
+          background: "rgba(255,255,255,0.10)",
           margin: "0 12px",
         }}
       />
@@ -161,7 +161,7 @@ export function Sidebar({
               fontFamily: "var(--font-jost)",
               fontSize: 13,
               fontWeight: 400,
-              color: "var(--text-dim)",
+              color: "rgba(255,255,255,0.7)",
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
@@ -177,8 +177,8 @@ export function Sidebar({
             alignItems: "center",
             gap: 6,
             background: "transparent",
-            color: "var(--text-muted)",
-            border: "1px solid var(--border-dark)",
+            color: "rgba(255,255,255,0.6)",
+            border: "1px solid rgba(255,255,255,0.2)",
             borderRadius: 100,
             padding: "5px 14px",
             fontSize: "0.65rem",

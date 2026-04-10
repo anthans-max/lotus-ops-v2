@@ -83,8 +83,8 @@ export function BottomTabBar() {
         left: 0,
         right: 0,
         zIndex: 50,
-        background: "var(--surface)",
-        borderTop: "1px solid var(--border)",
+        background: "var(--green)",
+        borderTop: "1px solid rgba(255,255,255,0.08)",
         display: "flex",
       }}
     >
@@ -107,7 +107,7 @@ export function BottomTabBar() {
               minHeight: 56,
               padding: "8px 4px",
               textDecoration: "none",
-              color: isActive ? "var(--green)" : "var(--text-muted)",
+              color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.55)",
               transition: "color 0.15s",
             }}
           >
@@ -116,7 +116,7 @@ export function BottomTabBar() {
               style={{
                 fontFamily: "var(--font-syne)",
                 fontSize: "0.52rem",
-                fontWeight: 500,
+                fontWeight: isActive ? 700 : 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
               }}
