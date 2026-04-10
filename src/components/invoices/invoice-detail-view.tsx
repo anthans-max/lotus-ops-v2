@@ -185,9 +185,9 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
             target="_blank"
             rel="noreferrer"
             style={{
-              background: "var(--green-pale)",
-              color: "var(--green)",
-              border: "1px solid var(--green)",
+              background: "var(--green)",
+              color: "#FFFFFF",
+              border: "none",
               borderRadius: 100,
               padding: "10px 16px",
               minHeight: 44,
@@ -207,9 +207,9 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
               onClick={handleSend}
               disabled={isPending}
               style={{
-                background: "var(--accent-pale)",
-                color: "var(--accent)",
-                border: "1px solid var(--accent)",
+                background: "var(--green)",
+                color: "#FFFFFF",
+                border: "none",
                 borderRadius: 100,
                 padding: "10px 16px",
                 minHeight: 44,
@@ -249,8 +249,8 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
             <button
               onClick={() => setShowPayment(true)}
               style={{
-                background: "var(--green-pale)",
-                color: "var(--green)",
+                background: "var(--green)",
+                color: "#FFFFFF",
                 border: "none",
                 borderRadius: 100,
                 padding: "10px 16px",
@@ -269,9 +269,9 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
             <button
               onClick={() => setVoidOpen(true)}
               style={{
-                background: "transparent",
-                color: "var(--text-muted)",
-                border: "1px solid var(--border-dark)",
+                background: "var(--green)",
+                color: "#FFFFFF",
+                border: "none",
                 borderRadius: 100,
                 padding: "10px 16px",
                 minHeight: 44,

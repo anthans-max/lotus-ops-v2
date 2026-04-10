@@ -144,8 +144,8 @@ export function TimeTrackingTable({
                         <button
                           onClick={() => onApprove(e)}
                           style={{
-                            background: "var(--green-pale)",
-                            color: "var(--green)",
+                            background: "var(--green)",
+                            color: "#FFFFFF",
                             border: "none",
                             borderRadius: 100,
                             padding: "5px 12px",
@@ -161,8 +161,8 @@ export function TimeTrackingTable({
                         <button
                           onClick={() => onReject(e)}
                           style={{
-                            background: "var(--red-pale)",
-                            color: "var(--red)",
+                            background: "var(--red)",
+                            color: "#FFFFFF",
                             border: "none",
                             borderRadius: 100,
                             padding: "5px 12px",

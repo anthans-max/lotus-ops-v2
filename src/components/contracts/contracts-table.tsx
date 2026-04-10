@@ -96,7 +96,7 @@ export function ContractsTable({
                 <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
                   <Link
                     href={`/contracts/${c.id}`}
-                    style={{ background: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "5px 12px", fontSize: "0.65rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none", display: "inline-flex", alignItems: "center" }}
+                    style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "5px 12px", fontSize: "0.65rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none", display: "inline-flex", alignItems: "center" }}
                   >
                     View
                   </Link>

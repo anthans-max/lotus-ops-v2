@@ -197,9 +197,9 @@ export function ContactsSection({
                     <button
                       onClick={() => setContactToEdit(c)}
                       style={{
-                        background: "transparent",
-                        color: "var(--text-muted)",
-                        border: "1px solid var(--border)",
+                        background: "var(--green)",
+                        color: "#FFFFFF",
+                        border: "none",
                         borderRadius: 100,
                         padding: "4px 12px",
                         minHeight: 30,
@@ -217,8 +217,8 @@ export function ContactsSection({
                         setConfirmDelete({ open: true, contact: c })
                       }
                       style={{
-                        background: "var(--red-pale)",
-                        color: "var(--red)",
+                        background: "var(--red)",
+                        color: "#FFFFFF",
                         border: "none",
                         borderRadius: 100,
                         padding: "4px 12px",

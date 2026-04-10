@@ -29,9 +29,9 @@ export function QuickActions() {
             key={a.href + a.label}
             href={a.href}
             style={{
-              background: "transparent",
-              color: a.color,
-              border: `1px solid ${a.color}`,
+              background: "var(--green)",
+              color: "#FFFFFF",
+              border: "none",
               borderRadius: 100,
               padding: "8px 16px",
               fontSize: "0.68rem",

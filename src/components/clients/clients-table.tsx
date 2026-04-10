@@ -103,9 +103,9 @@ export function ClientsTable({
                   <button
                     onClick={() => onContacts(c)}
                     style={{
-                      background: "transparent",
-                      color: "var(--text-muted)",
-                      border: "1px solid var(--border)",
+                      background: "var(--green)",
+                      color: "#FFFFFF",
+                      border: "none",
                       borderRadius: 100,
                       padding: "6px 14px",
                       minHeight: 32,

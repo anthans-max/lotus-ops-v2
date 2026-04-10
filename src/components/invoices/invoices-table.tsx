@@ -102,9 +102,9 @@ export function InvoicesTable({
                   <Link
                     href={`/invoices/${inv.id}`}
                     style={{
-                      background: "transparent",
-                      color: "var(--text-muted)",
-                      border: "1px solid var(--border-dark)",
+                      background: "var(--green)",
+                      color: "#FFFFFF",
+                      border: "none",
                       borderRadius: 100,
                       padding: "5px 12px",
                       fontSize: "0.65rem",
@@ -123,8 +123,8 @@ export function InvoicesTable({
                     target="_blank"
                     rel="noreferrer"
                     style={{
-                      background: "var(--green-pale)",
-                      color: "var(--green)",
+                      background: "var(--green)",
+                      color: "#FFFFFF",
                       border: "none",
                       borderRadius: 100,
                       padding: "5px 12px",

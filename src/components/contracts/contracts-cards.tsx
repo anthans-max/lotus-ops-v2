@@ -68,7 +68,7 @@ export function ContractsCards({
           <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
             <Link
               href={`/contracts/${c.id}`}
-              style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none" }}
+              style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "8px 16px", minHeight: 38, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none" }}
             >
               View
             </Link>

@@ -100,7 +100,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
               href={contract.pdfUrl}
               target="_blank"
               rel="noreferrer"
-              style={{ background: "var(--green-pale)", color: "var(--green)", border: "1px solid var(--green)", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none", display: "inline-flex", alignItems: "center" }}
+              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none", display: "inline-flex", alignItems: "center" }}
             >
               View PDF
             </a>
@@ -109,7 +109,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
             <button
               onClick={() => handleStatus("sent")}
               disabled={isPending}
-              style={{ background: "var(--accent-pale)", color: "var(--accent)", border: "1px solid var(--accent)", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
+              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
             >
               Mark Sent
             </button>
@@ -118,7 +118,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
             <button
               onClick={() => handleStatus("signed")}
               disabled={isPending}
-              style={{ background: "var(--green-pale)", color: "var(--green)", border: "1px solid var(--green)", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
+              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
             >
               Mark Signed
             </button>
@@ -127,7 +127,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
             <button
               onClick={() => handleStatus("expired")}
               disabled={isPending}
-              style={{ background: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
+              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
             >
               Mark Expired
             </button>
