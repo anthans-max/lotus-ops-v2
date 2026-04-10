@@ -5,17 +5,13 @@ const nextConfig: NextConfig = {
     "puppeteer-core",
     "@sparticuz/chromium",
     "@react-pdf/renderer",
+    "puppeteer",
   ],
+  turbopack: {},
   experimental: {
     serverActions: {
       bodySizeLimit: "10mb",
     },
-  },
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.externals.push('puppeteer');
-    }
-    return config;
   },
 };
 
