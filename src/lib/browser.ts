@@ -1,24 +1,18 @@
-import type { Browser } from 'puppeteer-core'
+import chromium from '@sparticuz/chromium';
+import puppeteerCore from 'puppeteer-core';
 
-let _browser: Browser | null = null
+let _browser: any = null;
 
-export async function getBrowser(): Promise<Browser> {
-  if (_browser) return _browser
+export async function getBrowser() {
+  if (_browser) return _browser;
 
-  if (process.env.VERCEL) {
-    const chromium = await import('@sparticuz/chromium')
-    const puppeteerCore = await import('puppeteer-core')
-    _browser = await puppeteerCore.default.launch({
-      args: chromium.default.args,
-      executablePath: await chromium.default.executablePath(),
-      headless: true,
-    })
-  } else {
-    // Local only — puppeteer installed as devDependency
-    const { execSync } = await import('child_process')
-    const puppeteer = await import('puppeteer')
-    _browser = await puppeteer.default.launch({ headless: true }) as unknown as Browser
-  }
+  _browser = await puppeteerCore.launch({
+    args: chromium.args,
+    executablePath: process.env.VERCEL
+      ? await chromium.executablePath()
+      : '/usr/bin/chromium-browser', // or '/usr/bin/google-chrome' locally
+    headless: true,
+  });
 
-  return _browser
+  return _browser;
 }

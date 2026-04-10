@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     "puppeteer-core",
     "@sparticuz/chromium",
     "@react-pdf/renderer",
-    "puppeteer",
   ],
   turbopack: {},
   experimental: {
