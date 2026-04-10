@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Sidebar } from "@/components/sidebar";
 import { BottomTabBar } from "@/components/bottom-tab-bar";
+import { MobileTopBar } from "@/components/mobile-top-bar";
 
 export default async function AdminLayout({
   children,
@@ -27,7 +28,8 @@ export default async function AdminLayout({
         />
       </div>
       <main className="flex-1 overflow-y-auto bg-bg pb-16 md:pb-0">
-        <div className="px-4 pb-8 md:px-10 md:pb-10">{children}</div>
+        <MobileTopBar />
+        <div className="px-6 pb-8 md:px-10 md:pb-10">{children}</div>
       </main>
       <BottomTabBar />
     </div>
