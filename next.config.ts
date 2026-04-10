@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "10mb",
     },
   },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals.push('puppeteer');
+    }
+    return config;
+  },
 };
 
 export default nextConfig;
