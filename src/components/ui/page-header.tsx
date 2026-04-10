@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 interface PageHeaderProps {
   title: string;
@@ -8,12 +8,18 @@ interface PageHeaderProps {
 }
 
 export function PageHeader({ title, actions }: PageHeaderProps) {
-  const today = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  const [dateStr, setDateStr] = useState("");
+
+  useEffect(() => {
+    setDateStr(
+      new Date().toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    );
+  }, []);
 
   return (
     <div
@@ -48,9 +54,10 @@ export function PageHeader({ title, actions }: PageHeaderProps) {
             textTransform: "uppercase",
             letterSpacing: "0.3px",
             marginTop: 3,
+            minHeight: 14,
           }}
         >
-          {today}
+          {dateStr}
         </p>
       </div>
       {actions && <div>{actions}</div>}
