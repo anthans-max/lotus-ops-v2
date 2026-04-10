@@ -107,9 +107,9 @@ export function ProjectsTable({
                   <button
                     onClick={() => onEdit(p)}
                     style={{
-                      background: "transparent",
-                      color: "var(--text-muted)",
-                      border: "1px solid var(--border)",
+                      background: "var(--green)",
+                      color: "#FFFFFF",
+                      border: "none",
                       borderRadius: 100,
                       padding: "6px 14px",
                       minHeight: 32,
@@ -125,8 +125,8 @@ export function ProjectsTable({
                   <button
                     onClick={() => onDelete(p)}
                     style={{
-                      background: "var(--red-pale)",
-                      color: "var(--red)",
+                      background: "var(--red)",
+                      color: "#FFFFFF",
                       border: "none",
                       borderRadius: 100,
                       padding: "6px 14px",

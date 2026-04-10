@@ -102,7 +102,7 @@ export function ContractsTable({
                   </Link>
                   <button
                     onClick={() => onDelete(c)}
-                    style={{ background: "var(--red-pale)", color: "var(--red)", border: "none", borderRadius: 100, padding: "5px 12px", fontSize: "0.65rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: "pointer" }}
+                    style={{ background: "var(--red)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "5px 12px", fontSize: "0.65rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: "pointer" }}
                   >
                     Delete
                   </button>

@@ -74,7 +74,7 @@ export function ContractsCards({
             </Link>
             <button
               onClick={() => onDelete(c)}
-              style={{ flex: 1, background: "var(--red-pale)", color: "var(--red)", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: "pointer" }}
+              style={{ flex: 1, background: "var(--red)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "8px 16px", minHeight: 38, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: "pointer" }}
             >
               Delete
             </button>

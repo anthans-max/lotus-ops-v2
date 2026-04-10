@@ -55,8 +55,8 @@ export function TemplatesTable({
                 <td style={{ ...tdStyle, color: "var(--text-muted)" }}>{vars.length}</td>
                 <td style={{ ...tdStyle, textAlign: "right", whiteSpace: "nowrap" }}>
                   <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
-                    <button onClick={() => onEdit(t)} style={{ background: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "5px 12px", fontSize: "0.65rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: "pointer" }}>Edit</button>
-                    <button onClick={() => onDelete(t)} style={{ background: "var(--red-pale)", color: "var(--red)", border: "none", borderRadius: 100, padding: "5px 12px", fontSize: "0.65rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: "pointer" }}>Delete</button>
+                    <button onClick={() => onEdit(t)} style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "5px 12px", fontSize: "0.65rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: "pointer" }}>Edit</button>
+                    <button onClick={() => onDelete(t)} style={{ background: "var(--red)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "5px 12px", fontSize: "0.65rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: "pointer" }}>Delete</button>
                   </div>
                 </td>
               </tr>

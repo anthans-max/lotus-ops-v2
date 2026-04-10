@@ -181,9 +181,9 @@ export function TimeTrackingTable({
                       <button
                         onClick={() => onEdit(e)}
                         style={{
-                          background: "transparent",
-                          color: "var(--text-muted)",
-                          border: "1px solid var(--border-dark)",
+                          background: "var(--green)",
+                          color: "#FFFFFF",
+                          border: "none",
                           borderRadius: 100,
                           padding: "5px 12px",
                           fontSize: "0.65rem",
@@ -199,8 +199,8 @@ export function TimeTrackingTable({
                     <button
                       onClick={() => onDelete(e)}
                       style={{
-                        background: "var(--red-pale)",
-                        color: "var(--red)",
+                        background: "var(--red)",
+                        color: "#FFFFFF",
                         border: "none",
                         borderRadius: 100,
                         padding: "5px 12px",
