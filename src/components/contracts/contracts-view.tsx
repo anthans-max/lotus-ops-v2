@@ -7,6 +7,7 @@ import { ContractForm, type ProjectOption } from "./contract-form";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { deleteContract, type Contract } from "@/app/actions/contracts";
 import Link from "next/link";
+import { PageHeader } from "@/components/ui/page-header";
 
 export type ContractWithProject = Contract & {
   projectName: string | null;
@@ -41,71 +42,54 @@ export function ContractsView({
 
   return (
     <div>
-      {/* Header */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: 24,
-          flexWrap: "wrap",
-          gap: 12,
-        }}
-      >
-        <h1
-          style={{
-            fontFamily: "var(--font-cormorant)",
-            fontSize: "1.4rem",
-            fontWeight: 600,
-            color: "var(--text)",
-          }}
-        >
-          Contracts
-        </h1>
-        <div style={{ display: "flex", gap: 8 }}>
-          <Link
-            href="/contracts/templates"
-            style={{
-              background: "transparent",
-              color: "var(--text-muted)",
-              border: "1px solid var(--border-dark)",
-              borderRadius: 100,
-              padding: "10px 16px",
-              minHeight: 44,
-              fontSize: "0.68rem",
-              fontFamily: "var(--font-jost)",
-              fontWeight: 500,
-              letterSpacing: "0.06em",
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-            }}
-          >
-            Templates
-          </Link>
-          <button
-            onClick={() => setAddOpen(true)}
-            disabled={projects.length === 0}
-            title={projects.length === 0 ? "Add a project first" : undefined}
-            style={{
-              background: "var(--green)",
-              color: "var(--bg)",
-              border: "none",
-              borderRadius: 100,
-              padding: "10px 20px",
-              minHeight: 44,
-              fontSize: "0.72rem",
-              fontFamily: "var(--font-jost)",
-              fontWeight: 500,
-              letterSpacing: "0.08em",
-              cursor: projects.length === 0 ? "not-allowed" : "pointer",
-              opacity: projects.length === 0 ? 0.5 : 1,
-            }}
-          >
-            + New Contract
-          </button>
-        </div>
-      </div>
+      <PageHeader
+        title="Contracts"
+        actions={
+          <div style={{ display: "flex", gap: 8 }}>
+            <Link
+              href="/contracts/templates"
+              style={{
+                background: "transparent",
+                color: "var(--text-muted)",
+                border: "1px solid var(--border-dark)",
+                borderRadius: 100,
+                padding: "10px 16px",
+                minHeight: 44,
+                fontSize: "0.68rem",
+                fontFamily: "var(--font-jost)",
+                fontWeight: 500,
+                letterSpacing: "0.06em",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+              }}
+            >
+              Templates
+            </Link>
+            <button
+              onClick={() => setAddOpen(true)}
+              disabled={projects.length === 0}
+              title={projects.length === 0 ? "Add a project first" : undefined}
+              style={{
+                background: "var(--green)",
+                color: "var(--bg)",
+                border: "none",
+                borderRadius: 100,
+                padding: "10px 20px",
+                minHeight: 44,
+                fontSize: "0.72rem",
+                fontFamily: "var(--font-jost)",
+                fontWeight: 500,
+                letterSpacing: "0.08em",
+                cursor: projects.length === 0 ? "not-allowed" : "pointer",
+                opacity: projects.length === 0 ? 0.5 : 1,
+              }}
+            >
+              + New Contract
+            </button>
+          </div>
+        }
+      />
 
       {deleteError && (
         <div

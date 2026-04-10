@@ -6,6 +6,7 @@ import { InvoicesCards } from "./invoices-cards";
 import { InvoiceForm, type ClientOption, type ProjectOption } from "./invoice-form";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { deleteInvoice, type Invoice } from "@/app/actions/invoices";
+import { PageHeader } from "@/components/ui/page-header";
 
 export type InvoiceWithClient = Invoice & {
   clientName: string | null;
@@ -44,49 +45,32 @@ export function InvoicesView({
 
   return (
     <div>
-      {/* Header */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: 24,
-          flexWrap: "wrap",
-          gap: 12,
-        }}
-      >
-        <h1
-          style={{
-            fontFamily: "var(--font-cormorant)",
-            fontSize: "1.4rem",
-            fontWeight: 600,
-            color: "var(--text)",
-          }}
-        >
-          Invoices
-        </h1>
-        <button
-          onClick={() => setAddOpen(true)}
-          disabled={clients.length === 0}
-          title={clients.length === 0 ? "Add a client first" : undefined}
-          style={{
-            background: "var(--green)",
-            color: "var(--bg)",
-            border: "none",
-            borderRadius: 100,
-            padding: "10px 20px",
-            minHeight: 44,
-            fontSize: "0.72rem",
-            fontFamily: "var(--font-jost)",
-            fontWeight: 500,
-            letterSpacing: "0.08em",
-            cursor: clients.length === 0 ? "not-allowed" : "pointer",
-            opacity: clients.length === 0 ? 0.5 : 1,
-          }}
-        >
-          + New Invoice
-        </button>
-      </div>
+      <PageHeader
+        title="Invoices"
+        actions={
+          <button
+            onClick={() => setAddOpen(true)}
+            disabled={clients.length === 0}
+            title={clients.length === 0 ? "Add a client first" : undefined}
+            style={{
+              background: "var(--green)",
+              color: "var(--bg)",
+              border: "none",
+              borderRadius: 100,
+              padding: "10px 20px",
+              minHeight: 44,
+              fontSize: "0.72rem",
+              fontFamily: "var(--font-jost)",
+              fontWeight: 500,
+              letterSpacing: "0.08em",
+              cursor: clients.length === 0 ? "not-allowed" : "pointer",
+              opacity: clients.length === 0 ? 0.5 : 1,
+            }}
+          >
+            + New Invoice
+          </button>
+        }
+      />
 
       {deleteError && (
         <div

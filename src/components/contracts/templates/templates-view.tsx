@@ -7,6 +7,7 @@ import { TemplatesCards } from "./templates-cards";
 import { TemplateForm } from "./template-form";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { deleteTemplate, type ContractTemplate } from "@/app/actions/contract-templates";
+import { PageHeader } from "@/components/ui/page-header";
 
 export function TemplatesView({ templates }: { templates: ContractTemplate[] }) {
   const [addOpen, setAddOpen] = useState(false);
@@ -31,25 +32,23 @@ export function TemplatesView({ templates }: { templates: ContractTemplate[] }) 
 
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24, flexWrap: "wrap", gap: 12 }}>
-        <div>
-          <Link
-            href="/contracts"
-            style={{ fontFamily: "var(--font-jost)", fontSize: 12, color: "var(--text-muted)", textDecoration: "none", display: "inline-block", marginBottom: 6 }}
+      <Link
+        href="/contracts"
+        style={{ fontFamily: "var(--font-jost)", fontSize: 12, color: "var(--text-muted)", textDecoration: "none", display: "inline-block", paddingTop: 20, marginBottom: 4 }}
+      >
+        ← Contracts
+      </Link>
+      <PageHeader
+        title="Contract Templates"
+        actions={
+          <button
+            onClick={() => setAddOpen(true)}
+            style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.72rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: "pointer" }}
           >
-            ← Contracts
-          </Link>
-          <h1 style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.4rem", fontWeight: 600, color: "var(--text)" }}>
-            Contract Templates
-          </h1>
-        </div>
-        <button
-          onClick={() => setAddOpen(true)}
-          style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.72rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: "pointer" }}
-        >
-          + New Template
-        </button>
-      </div>
+            + New Template
+          </button>
+        }
+      />
 
       {deleteError && (
         <div style={{ background: "var(--red-pale)", border: "1px solid var(--red)", borderRadius: 8, padding: "12px 16px", marginBottom: 16, fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--red)" }}>

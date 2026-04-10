@@ -7,6 +7,7 @@ import { ClientForm } from "./client-form";
 import { ContactsSection } from "./contacts-section";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { deleteClient, type Client } from "@/app/actions/clients";
+import { PageHeader } from "@/components/ui/page-header";
 
 export type ClientWithCounts = Client & {
   projectCount: number;
@@ -39,46 +40,29 @@ export function ClientsView({ clients }: { clients: ClientWithCounts[] }) {
 
   return (
     <div>
-      {/* Header */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: 24,
-          flexWrap: "wrap",
-          gap: 12,
-        }}
-      >
-        <h1
-          style={{
-            fontFamily: "var(--font-cormorant)",
-            fontSize: "1.4rem",
-            fontWeight: 600,
-            color: "var(--text)",
-          }}
-        >
-          Clients
-        </h1>
-        <button
-          onClick={() => setAddOpen(true)}
-          style={{
-            background: "var(--green)",
-            color: "var(--bg)",
-            border: "none",
-            borderRadius: 100,
-            padding: "10px 20px",
-            minHeight: 44,
-            fontSize: "0.72rem",
-            fontFamily: "var(--font-jost)",
-            fontWeight: 500,
-            letterSpacing: "0.08em",
-            cursor: "pointer",
-          }}
-        >
-          + Add Client
-        </button>
-      </div>
+      <PageHeader
+        title="Clients"
+        actions={
+          <button
+            onClick={() => setAddOpen(true)}
+            style={{
+              background: "var(--green)",
+              color: "var(--bg)",
+              border: "none",
+              borderRadius: 100,
+              padding: "10px 20px",
+              minHeight: 44,
+              fontSize: "0.72rem",
+              fontFamily: "var(--font-jost)",
+              fontWeight: 500,
+              letterSpacing: "0.08em",
+              cursor: "pointer",
+            }}
+          >
+            + Add Client
+          </button>
+        }
+      />
 
       {deleteError && (
         <div

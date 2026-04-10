@@ -12,6 +12,7 @@ import {
   rejectTimeEntry,
   type TimeEntry,
 } from "@/app/actions/time-entries";
+import { PageHeader } from "@/components/ui/page-header";
 
 export type TimeEntryWithProject = TimeEntry & {
   projectName: string | null;
@@ -332,36 +333,40 @@ export function TimeTrackingView({
 
   return (
     <div>
-      {/* Header */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: 20,
-          flexWrap: "wrap",
-          gap: 12,
-        }}
-      >
-        <h1
-          style={{
-            fontFamily: "var(--font-cormorant)",
-            fontSize: "1.4rem",
-            fontWeight: 600,
-            color: "var(--text)",
-          }}
-        >
-          Time Tracking
-        </h1>
-        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          {draftSelected.length > 0 && (
+      <PageHeader
+        title="Time Tracking"
+        actions={
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            {draftSelected.length > 0 && (
+              <button
+                onClick={handleBatchSubmit}
+                disabled={isSubmitting}
+                style={{
+                  background: "var(--accent-pale)",
+                  color: "var(--accent)",
+                  border: "1px solid var(--accent)",
+                  borderRadius: 100,
+                  padding: "10px 20px",
+                  minHeight: 44,
+                  fontSize: "0.72rem",
+                  fontFamily: "var(--font-jost)",
+                  fontWeight: 500,
+                  letterSpacing: "0.08em",
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
+                  opacity: isSubmitting ? 0.6 : 1,
+                }}
+              >
+                {isSubmitting ? "Submitting…" : `Submit ${draftSelected.length} Selected`}
+              </button>
+            )}
             <button
-              onClick={handleBatchSubmit}
-              disabled={isSubmitting}
+              onClick={() => setAddOpen(true)}
+              disabled={projectOptions.length === 0}
+              title={projectOptions.length === 0 ? "Add a project first" : undefined}
               style={{
-                background: "var(--accent-pale)",
-                color: "var(--accent)",
-                border: "1px solid var(--accent)",
+                background: "var(--green)",
+                color: "var(--bg)",
+                border: "none",
                 borderRadius: 100,
                 padding: "10px 20px",
                 minHeight: 44,
@@ -369,36 +374,15 @@ export function TimeTrackingView({
                 fontFamily: "var(--font-jost)",
                 fontWeight: 500,
                 letterSpacing: "0.08em",
-                cursor: isSubmitting ? "not-allowed" : "pointer",
-                opacity: isSubmitting ? 0.6 : 1,
+                cursor: projectOptions.length === 0 ? "not-allowed" : "pointer",
+                opacity: projectOptions.length === 0 ? 0.5 : 1,
               }}
             >
-              {isSubmitting ? "Submitting…" : `Submit ${draftSelected.length} Selected`}
+              + Log Time
             </button>
-          )}
-          <button
-            onClick={() => setAddOpen(true)}
-            disabled={projectOptions.length === 0}
-            title={projectOptions.length === 0 ? "Add a project first" : undefined}
-            style={{
-              background: "var(--green)",
-              color: "var(--bg)",
-              border: "none",
-              borderRadius: 100,
-              padding: "10px 20px",
-              minHeight: 44,
-              fontSize: "0.72rem",
-              fontFamily: "var(--font-jost)",
-              fontWeight: 500,
-              letterSpacing: "0.08em",
-              cursor: projectOptions.length === 0 ? "not-allowed" : "pointer",
-              opacity: projectOptions.length === 0 ? 0.5 : 1,
-            }}
-          >
-            + Log Time
-          </button>
-        </div>
-      </div>
+          </div>
+        }
+      />
 
       {deleteError && (
         <div

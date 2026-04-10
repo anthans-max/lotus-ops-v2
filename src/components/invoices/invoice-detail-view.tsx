@@ -137,7 +137,7 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
   };
 
   return (
-    <div>
+    <div style={{ paddingTop: 20 }}>
       {/* Back link */}
       <Link
         href="/invoices"

@@ -27,7 +27,7 @@ export default async function AdminLayout({
         />
       </div>
       <main className="flex-1 overflow-y-auto bg-bg pb-16 md:pb-0">
-        <div className="px-4 py-5 md:px-10 md:py-8">{children}</div>
+        <div className="px-4 pb-8 md:px-10 md:pb-10">{children}</div>
       </main>
       <BottomTabBar />
     </div>

@@ -61,7 +61,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
   };
 
   return (
-    <div>
+    <div style={{ paddingTop: 20 }}>
       <Link
         href="/contracts"
         style={{ fontFamily: "var(--font-jost)", fontSize: 12, color: "var(--text-muted)", textDecoration: "none", display: "inline-block", marginBottom: 16 }}

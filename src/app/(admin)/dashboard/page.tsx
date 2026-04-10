@@ -6,6 +6,7 @@ import { eq, sql, and, isNull, desc, inArray } from "drizzle-orm";
 import { MetricCard } from "@/components/dashboard/metric-card";
 import { ActivityFeed, type ActivityItem } from "@/components/dashboard/activity-feed";
 import { QuickActions } from "@/components/dashboard/quick-actions";
+import { PageHeader } from "@/components/ui/page-header";
 
 export default async function DashboardPage() {
   const today = new Date().toISOString().slice(0, 10);
@@ -80,17 +81,7 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <h1
-        style={{
-          fontFamily: "var(--font-cormorant)",
-          fontSize: "1.4rem",
-          fontWeight: 600,
-          color: "var(--text)",
-          marginBottom: 24,
-        }}
-      >
-        Dashboard
-      </h1>
+      <PageHeader title="Dashboard" />
 
       {/* Metrics grid */}
       <div
