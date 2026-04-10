@@ -66,7 +66,7 @@ export default async function AdminLayout({
             AaraSaan Consulting
           </p>
         </div>
-        <div className="px-6 pb-8 md:px-10 md:pb-10">{children}</div>
+        <div className="px-4 pb-8 md:px-8 md:pb-10">{children}</div>
       </main>
       <BottomTabBar />
     </div>
