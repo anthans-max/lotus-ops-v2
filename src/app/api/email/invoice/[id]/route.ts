@@ -11,12 +11,11 @@ import { getSettings } from '@/app/actions/settings'
 import { Resend } from 'resend'
 import React from 'react'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function POST(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const resend = new Resend(process.env.RESEND_API_KEY)
   const { id } = await params
 
   const [[inv], lineItemRows, settings] = await Promise.all([
