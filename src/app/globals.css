@@ -79,3 +79,15 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #A09890;
 }
+
+/* ── Dialog mobile fullscreen ───────────────────────────────── */
+@media (max-width: 767px) {
+  .dialog-fullscreen {
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    width: 100vw !important;
+    max-height: 100dvh !important;
+    border-radius: 0 !important;
+    padding: 20px 16px !important;
+  }
+}

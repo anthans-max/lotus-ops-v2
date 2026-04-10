@@ -7,11 +7,15 @@ export function Dialog({
   onClose,
   title,
   children,
+  className,
+  zIndex = 1000,
 }: {
   open: boolean;
   onClose: () => void;
   title: string;
   children: React.ReactNode;
+  className?: string;
+  zIndex?: number;
 }) {
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -39,10 +43,11 @@ export function Dialog({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        zIndex: 1000,
+        zIndex,
       }}
     >
       <div
+        className={className}
         style={{
           background: "var(--bg)",
           borderRadius: 12,
