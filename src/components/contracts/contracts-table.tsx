@@ -42,23 +42,23 @@ export function ContractsTable({
   if (contracts.length === 0) return null;
 
   const thStyle: React.CSSProperties = {
-    padding: "10px 14px",
     textAlign: "left",
     fontFamily: "var(--font-syne)",
     fontSize: "0.58rem",
     fontWeight: 500,
-    letterSpacing: "0.1em",
+    letterSpacing: "0.12em",
     textTransform: "uppercase",
     color: "var(--text-muted)",
+    padding: "0 12px 10px",
     whiteSpace: "nowrap",
   };
 
   const tdStyle: React.CSSProperties = {
-    padding: "11px 14px",
+    padding: "14px 12px",
     fontFamily: "var(--font-jost)",
     fontSize: 13,
-    color: "var(--text)",
-    borderTop: "1px solid var(--border)",
+    color: "var(--text-dim)",
+    borderBottom: "1px solid var(--border)",
     verticalAlign: "middle",
   };
 
@@ -66,43 +66,69 @@ export function ContractsTable({
     <div className="hidden md:block" style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
-          <tr style={{ background: "var(--tan)" }}>
+          <tr style={{ borderBottom: "1px solid var(--border)" }}>
             <th style={thStyle}>Contract #</th>
             <th style={thStyle}>Project</th>
             <th style={thStyle}>Client</th>
             <th style={thStyle}>Status</th>
             <th style={thStyle}>Created</th>
-            <th style={{ ...thStyle, textAlign: "right" }}>Actions</th>
+            <th style={thStyle} />
           </tr>
         </thead>
         <tbody>
           {contracts.map((c) => (
             <tr key={c.id}>
-              <td style={tdStyle}>
+              <td style={{ ...tdStyle, color: "var(--text)", fontWeight: 500 }}>
                 <Link
                   href={`/contracts/${c.id}`}
-                  style={{ color: "var(--green)", textDecoration: "none", fontWeight: 500 }}
+                  style={{ color: "var(--green)", textDecoration: "none" }}
                 >
                   {c.contractNumber}
                 </Link>
               </td>
               <td style={tdStyle}>{c.projectName ?? "—"}</td>
-              <td style={{ ...tdStyle, color: "var(--text-muted)" }}>{c.clientName ?? "—"}</td>
+              <td style={tdStyle}>{c.clientName ?? "—"}</td>
               <td style={tdStyle}><StatusBadge status={c.status} /></td>
-              <td style={{ ...tdStyle, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+              <td style={{ ...tdStyle, fontSize: 12, whiteSpace: "nowrap" }}>
                 {c.createdAt ? new Date(c.createdAt).toLocaleDateString() : "—"}
               </td>
-              <td style={{ ...tdStyle, textAlign: "right" }}>
+              <td style={{ ...tdStyle, whiteSpace: "nowrap" }}>
                 <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
                   <Link
                     href={`/contracts/${c.id}`}
-                    style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "5px 12px", fontSize: "0.65rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none", display: "inline-flex", alignItems: "center" }}
+                    style={{
+                      background: "var(--green)",
+                      color: "#FFFFFF",
+                      border: "none",
+                      borderRadius: 100,
+                      padding: "6px 14px",
+                      minHeight: 32,
+                      fontSize: "0.65rem",
+                      fontFamily: "var(--font-jost)",
+                      fontWeight: 500,
+                      letterSpacing: "0.06em",
+                      textDecoration: "none",
+                      display: "inline-flex",
+                      alignItems: "center",
+                    }}
                   >
                     View
                   </Link>
                   <button
                     onClick={() => onDelete(c)}
-                    style={{ background: "var(--red)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "5px 12px", fontSize: "0.65rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: "pointer" }}
+                    style={{
+                      background: "var(--red)",
+                      color: "#FFFFFF",
+                      border: "none",
+                      borderRadius: 100,
+                      padding: "6px 14px",
+                      minHeight: 32,
+                      fontSize: "0.65rem",
+                      fontFamily: "var(--font-jost)",
+                      fontWeight: 500,
+                      letterSpacing: "0.06em",
+                      cursor: "pointer",
+                    }}
                   >
                     Delete
                   </button>

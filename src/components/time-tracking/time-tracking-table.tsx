@@ -52,23 +52,23 @@ export function TimeTrackingTable({
   if (entries.length === 0) return null;
 
   const thStyle: React.CSSProperties = {
-    padding: "10px 14px",
     textAlign: "left",
     fontFamily: "var(--font-syne)",
     fontSize: "0.58rem",
     fontWeight: 500,
-    letterSpacing: "0.1em",
+    letterSpacing: "0.12em",
     textTransform: "uppercase",
     color: "var(--text-muted)",
+    padding: "0 12px 10px",
     whiteSpace: "nowrap",
   };
 
   const tdStyle: React.CSSProperties = {
-    padding: "11px 14px",
+    padding: "14px 12px",
     fontFamily: "var(--font-jost)",
     fontSize: 13,
-    color: "var(--text)",
-    borderTop: "1px solid var(--border)",
+    color: "var(--text-dim)",
+    borderBottom: "1px solid var(--border)",
     verticalAlign: "middle",
   };
 
@@ -76,10 +76,8 @@ export function TimeTrackingTable({
     <div className="hidden md:block" style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
-          <tr style={{ background: "var(--tan)" }}>
-            <th style={{ ...thStyle, width: 36 }}>
-              <span style={{ opacity: 0 }}>☐</span>
-            </th>
+          <tr style={{ borderBottom: "1px solid var(--border)" }}>
+            <th style={{ ...thStyle, width: 36 }} />
             <th style={thStyle}>Date</th>
             <th style={thStyle}>Project</th>
             <th style={thStyle}>Client</th>
@@ -88,7 +86,7 @@ export function TimeTrackingTable({
             <th style={thStyle}>Amount</th>
             <th style={thStyle}>Description</th>
             <th style={thStyle}>Status</th>
-            <th style={{ ...thStyle, textAlign: "right" }}>Actions</th>
+            <th style={thStyle} />
           </tr>
         </thead>
         <tbody>
@@ -112,11 +110,11 @@ export function TimeTrackingTable({
                     />
                   )}
                 </td>
-                <td style={{ ...tdStyle, whiteSpace: "nowrap" }}>{e.date}</td>
-                <td style={tdStyle}>{e.projectName ?? "—"}</td>
-                <td style={{ ...tdStyle, color: "var(--text-muted)" }}>{e.clientName ?? "—"}</td>
+                <td style={{ ...tdStyle, fontSize: 12, whiteSpace: "nowrap" }}>{e.date}</td>
+                <td style={{ ...tdStyle, color: "var(--text)", fontWeight: 500 }}>{e.projectName ?? "—"}</td>
+                <td style={tdStyle}>{e.clientName ?? "—"}</td>
                 <td style={tdStyle}>{Number(e.hours).toFixed(2)}</td>
-                <td style={{ ...tdStyle, color: "var(--text-muted)" }}>
+                <td style={tdStyle}>
                   {e.rate ? `$${Number(e.rate).toFixed(2)}` : "—"}
                 </td>
                 <td style={tdStyle}>
@@ -125,7 +123,6 @@ export function TimeTrackingTable({
                 <td
                   style={{
                     ...tdStyle,
-                    color: "var(--text-muted)",
                     maxWidth: 200,
                     overflow: "hidden",
                     textOverflow: "ellipsis",
@@ -137,7 +134,7 @@ export function TimeTrackingTable({
                 <td style={tdStyle}>
                   <StatusBadge status={e.status} />
                 </td>
-                <td style={{ ...tdStyle, textAlign: "right", whiteSpace: "nowrap" }}>
+                <td style={{ ...tdStyle, whiteSpace: "nowrap" }}>
                   <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
                     {isSubmitted && (
                       <>
@@ -148,7 +145,8 @@ export function TimeTrackingTable({
                             color: "#FFFFFF",
                             border: "none",
                             borderRadius: 100,
-                            padding: "5px 12px",
+                            padding: "6px 14px",
+                            minHeight: 32,
                             fontSize: "0.65rem",
                             fontFamily: "var(--font-jost)",
                             fontWeight: 500,
@@ -165,7 +163,8 @@ export function TimeTrackingTable({
                             color: "#FFFFFF",
                             border: "none",
                             borderRadius: 100,
-                            padding: "5px 12px",
+                            padding: "6px 14px",
+                            minHeight: 32,
                             fontSize: "0.65rem",
                             fontFamily: "var(--font-jost)",
                             fontWeight: 500,
@@ -203,7 +202,8 @@ export function TimeTrackingTable({
                         color: "#FFFFFF",
                         border: "none",
                         borderRadius: 100,
-                        padding: "5px 12px",
+                        padding: "6px 14px",
+                        minHeight: 32,
                         fontSize: "0.65rem",
                         fontFamily: "var(--font-jost)",
                         fontWeight: 500,

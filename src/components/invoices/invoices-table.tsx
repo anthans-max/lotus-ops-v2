@@ -43,23 +43,23 @@ export function InvoicesTable({
   if (invoices.length === 0) return null;
 
   const thStyle: React.CSSProperties = {
-    padding: "10px 14px",
     textAlign: "left",
     fontFamily: "var(--font-syne)",
     fontSize: "0.58rem",
     fontWeight: 500,
-    letterSpacing: "0.1em",
+    letterSpacing: "0.12em",
     textTransform: "uppercase",
     color: "var(--text-muted)",
+    padding: "0 12px 10px",
     whiteSpace: "nowrap",
   };
 
   const tdStyle: React.CSSProperties = {
-    padding: "11px 14px",
+    padding: "14px 12px",
     fontFamily: "var(--font-jost)",
     fontSize: 13,
-    color: "var(--text)",
-    borderTop: "1px solid var(--border)",
+    color: "var(--text-dim)",
+    borderBottom: "1px solid var(--border)",
     verticalAlign: "middle",
   };
 
@@ -67,7 +67,7 @@ export function InvoicesTable({
     <div className="hidden md:block" style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
-          <tr style={{ background: "var(--tan)" }}>
+          <tr style={{ borderBottom: "1px solid var(--border)" }}>
             <th style={thStyle}>Invoice #</th>
             <th style={thStyle}>Client</th>
             <th style={thStyle}>Project</th>
@@ -75,29 +75,29 @@ export function InvoicesTable({
             <th style={thStyle}>Due Date</th>
             <th style={thStyle}>Total</th>
             <th style={thStyle}>Status</th>
-            <th style={{ ...thStyle, textAlign: "right" }}>Actions</th>
+            <th style={thStyle} />
           </tr>
         </thead>
         <tbody>
           {invoices.map((inv) => (
             <tr key={inv.id}>
-              <td style={tdStyle}>
+              <td style={{ ...tdStyle, color: "var(--text)", fontWeight: 500 }}>
                 <Link
                   href={`/invoices/${inv.id}`}
-                  style={{ color: "var(--green)", textDecoration: "none", fontWeight: 500 }}
+                  style={{ color: "var(--green)", textDecoration: "none" }}
                 >
                   {inv.invoiceNumber}
                 </Link>
               </td>
               <td style={tdStyle}>{inv.clientName ?? "—"}</td>
-              <td style={{ ...tdStyle, color: "var(--text-muted)" }}>{inv.projectName ?? "—"}</td>
-              <td style={{ ...tdStyle, whiteSpace: "nowrap" }}>{inv.issueDate}</td>
-              <td style={{ ...tdStyle, whiteSpace: "nowrap" }}>{inv.dueDate}</td>
+              <td style={tdStyle}>{inv.projectName ?? "—"}</td>
+              <td style={{ ...tdStyle, fontSize: 12, whiteSpace: "nowrap" }}>{inv.issueDate}</td>
+              <td style={{ ...tdStyle, fontSize: 12, whiteSpace: "nowrap" }}>{inv.dueDate}</td>
               <td style={tdStyle}>${Number(inv.total ?? 0).toFixed(2)}</td>
               <td style={tdStyle}>
                 <StatusBadge status={inv.status} />
               </td>
-              <td style={{ ...tdStyle, textAlign: "right", whiteSpace: "nowrap" }}>
+              <td style={{ ...tdStyle, whiteSpace: "nowrap" }}>
                 <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
                   <Link
                     href={`/invoices/${inv.id}`}
@@ -106,7 +106,8 @@ export function InvoicesTable({
                       color: "#FFFFFF",
                       border: "none",
                       borderRadius: 100,
-                      padding: "5px 12px",
+                      padding: "6px 14px",
+                      minHeight: 32,
                       fontSize: "0.65rem",
                       fontFamily: "var(--font-jost)",
                       fontWeight: 500,
@@ -127,7 +128,8 @@ export function InvoicesTable({
                       color: "#FFFFFF",
                       border: "none",
                       borderRadius: 100,
-                      padding: "5px 12px",
+                      padding: "6px 14px",
+                      minHeight: 32,
                       fontSize: "0.65rem",
                       fontFamily: "var(--font-jost)",
                       fontWeight: 500,
@@ -146,7 +148,8 @@ export function InvoicesTable({
                       color: "#FFFFFF",
                       border: "none",
                       borderRadius: 100,
-                      padding: "5px 12px",
+                      padding: "6px 14px",
+                      minHeight: 32,
                       fontSize: "0.65rem",
                       fontFamily: "var(--font-jost)",
                       fontWeight: 500,
