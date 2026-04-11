@@ -97,7 +97,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           {contract.pdfUrl && (
             <a
-              href={contract.pdfUrl}
+              href={`/api/pdf/contract/${contract.id}`}
               target="_blank"
               rel="noreferrer"
               style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none", display: "inline-flex", alignItems: "center" }}

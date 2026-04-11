@@ -6,6 +6,7 @@ import { db } from '@/db'
 import { contracts, contractTemplates, projects, clients } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { getBrowser } from '@/lib/browser'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 function fillTemplate(html: string, variables: Record<string, string>): string {
   return html.replace(/\{\{(\w+)\}\}/g, (_, key) => variables[key] ?? `{{${key}}}`)
@@ -37,10 +38,17 @@ export async function GET(
     return new Response('Contract not found', { status: 404 })
   }
 
-  // If no template, redirect to uploaded PDF if available
+  // If no template, redirect to a short-lived signed URL for the uploaded PDF
   if (!contract.templateId) {
     if (contract.pdfUrl) {
-      return Response.redirect(contract.pdfUrl)
+      const supabase = createAdminClient()
+      const { data, error } = await supabase.storage
+        .from('contracts')
+        .createSignedUrl(contract.pdfUrl, 3600)
+      if (error || !data) {
+        return new Response(`Could not sign PDF URL: ${error?.message ?? 'unknown'}`, { status: 500 })
+      }
+      return Response.redirect(data.signedUrl)
     }
     return new Response('No PDF or template for this contract', { status: 404 })
   }

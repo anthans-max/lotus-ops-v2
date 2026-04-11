@@ -5,7 +5,7 @@ import { contracts } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 import { InferSelectModel } from 'drizzle-orm'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { generateContractNumber } from '@/lib/contract-number'
 
 export type Contract = InferSelectModel<typeof contracts>
@@ -21,10 +21,10 @@ export async function createContract(formData: FormData): Promise<ActionResult<{
 
     if (!projectId) return { success: false, error: 'Project is required.' }
 
-    let pdfUrl: string | null = null
+    let pdfPath: string | null = null
 
     if (file && file.size > 0) {
-      const supabase = await createClient()
+      const supabase = createAdminClient()
       const ext = file.name.split('.').pop() ?? 'pdf'
       const fileName = `contract-${Date.now()}.${ext}`
       const buffer = Buffer.from(await file.arrayBuffer())
@@ -35,8 +35,7 @@ export async function createContract(formData: FormData): Promise<ActionResult<{
 
       if (uploadError) return { success: false, error: uploadError.message }
 
-      const { data: urlData } = supabase.storage.from('contracts').getPublicUrl(fileName)
-      pdfUrl = urlData.publicUrl
+      pdfPath = fileName
     }
 
     const contractNumber = await generateContractNumber()
@@ -47,7 +46,7 @@ export async function createContract(formData: FormData): Promise<ActionResult<{
         projectId,
         contractNumber,
         status: 'draft',
-        pdfUrl,
+        pdfUrl: pdfPath,
       })
       .returning({ id: contracts.id })
 
@@ -86,15 +85,10 @@ export async function deleteContract(id: string): Promise<ActionResult<undefined
       .from(contracts)
       .where(eq(contracts.id, id))
 
-    // Optionally delete file from storage
     if (contract?.pdfUrl) {
       try {
-        const supabase = await createClient()
-        const url = new URL(contract.pdfUrl)
-        const pathParts = url.pathname.split('/contracts/')
-        if (pathParts.length > 1) {
-          await supabase.storage.from('contracts').remove([pathParts[1]])
-        }
+        const supabase = createAdminClient()
+        await supabase.storage.from('contracts').remove([contract.pdfUrl])
       } catch {
         // Non-fatal: continue with DB delete
       }
