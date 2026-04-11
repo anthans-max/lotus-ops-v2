@@ -44,7 +44,8 @@ export async function createProject(input: {
     revalidatePath('/clients')
     return { success: true, data: { id: row.id } }
   } catch (e) {
-    return { success: false, error: (e as Error).message }
+    const err = e as Error & { cause?: Error }
+    return { success: false, error: err.cause?.message ?? err.message }
   }
 }
 
@@ -76,7 +77,8 @@ export async function updateProject(
     revalidatePath('/clients')
     return { success: true, data: { id: row.id } }
   } catch (e) {
-    return { success: false, error: (e as Error).message }
+    const err = e as Error & { cause?: Error }
+    return { success: false, error: err.cause?.message ?? err.message }
   }
 }
 
@@ -117,6 +119,7 @@ export async function deleteProject(id: string): Promise<ActionResult<undefined>
     revalidatePath('/clients')
     return { success: true, data: undefined }
   } catch (e) {
-    return { success: false, error: (e as Error).message }
+    const err = e as Error & { cause?: Error }
+    return { success: false, error: err.cause?.message ?? err.message }
   }
 }
