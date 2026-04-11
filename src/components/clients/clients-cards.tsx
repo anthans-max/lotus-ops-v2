@@ -37,7 +37,7 @@ export function ClientsCards({
   if (clients.length === 0) return null;
 
   return (
-    <div className="block md:hidden" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+    <div className="flex flex-col gap-3 md:hidden">
       {clients.map((c) => (
         <div
           key={c.id}
