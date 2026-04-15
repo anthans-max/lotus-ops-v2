@@ -4,6 +4,7 @@ import { useState, useTransition, useMemo } from "react";
 import { TimeTrackingTable } from "./time-tracking-table";
 import { TimeTrackingCards } from "./time-tracking-cards";
 import { TimeEntryForm, type ProjectOption } from "./time-entry-form";
+import { WeeklySummaryButton } from "./weekly-summary-button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import {
   deleteTimeEntry,
@@ -359,6 +360,7 @@ export function TimeTrackingView({
                 {isSubmitting ? "Submitting…" : `Submit ${draftSelected.length} Selected`}
               </button>
             )}
+            <WeeklySummaryButton />
             <button
               onClick={() => setAddOpen(true)}
               disabled={projectOptions.length === 0}
