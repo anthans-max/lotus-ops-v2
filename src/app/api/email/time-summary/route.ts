@@ -54,11 +54,25 @@ export async function POST(request: Request) {
     .map((r, i) => {
       const bg = i % 2 === 0 ? "#ffffff" : altBg;
       const project = [r.projectName, r.clientName].filter(Boolean).join(" · ");
+      const rawDesc = r.description ?? "";
+      const items = rawDesc
+        .split(/\s*\d+\.\s+/)
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0);
+      const descHtml =
+        items.length > 0
+          ? `<ul style="margin:0;padding:0 0 0 16px;">${items
+              .map(
+                (it) =>
+                  `<li style="margin:0 0 4px 0;font-size:13px;line-height:1.4;">${escapeHtml(it)}</li>`
+              )
+              .join("")}</ul>`
+          : escapeHtml(rawDesc);
       return `<tr style="background:${bg};">
         <td style="padding:10px 12px;border-bottom:1px solid #e6e1d6;font-family:Arial,sans-serif;font-size:13px;color:#2a2a2a;">${r.date}</td>
         <td style="padding:10px 12px;border-bottom:1px solid #e6e1d6;font-family:Arial,sans-serif;font-size:13px;color:#2a2a2a;">${escapeHtml(project || "—")}</td>
         <td style="padding:10px 12px;border-bottom:1px solid #e6e1d6;font-family:Arial,sans-serif;font-size:13px;color:#2a2a2a;text-align:right;">${parseFloat(r.hours).toFixed(2)}</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #e6e1d6;font-family:Arial,sans-serif;font-size:13px;color:#2a2a2a;">${escapeHtml(r.description ?? "")}</td>
+        <td style="padding:10px 12px;border-bottom:1px solid #e6e1d6;font-family:Arial,sans-serif;font-size:13px;color:#2a2a2a;">${descHtml}</td>
       </tr>`;
     })
     .join("");
