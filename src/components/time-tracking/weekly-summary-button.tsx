@@ -20,6 +20,7 @@ export function WeeklySummaryButton() {
   // TODO: replace with Jack's email
   const [recipientEmail, setRecipientEmail] = useState("");
   const [recipientName, setRecipientName] = useState("");
+  const [highlights, setHighlights] = useState("");
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState<
     { type: "success" | "error"; text: string } | null
@@ -43,6 +44,7 @@ export function WeeklySummaryButton() {
           weekEnd,
           recipientEmail,
           recipientName,
+          highlights,
         }),
       });
       const data = (await res.json()) as { success?: boolean; error?: string };
@@ -166,6 +168,22 @@ export function WeeklySummaryButton() {
                 value={recipientName}
                 onChange={(e) => setRecipientName(e.target.value)}
                 style={inputStyle}
+              />
+            </div>
+
+            <div style={{ marginBottom: 14 }}>
+              <label style={labelStyle}>Key Highlights</label>
+              <textarea
+                value={highlights}
+                onChange={(e) => setHighlights(e.target.value)}
+                rows={5}
+                placeholder={"• Established foundational structure for project portfolio\n• Completed initial discovery across key systems\n• Began customer portal requirements and gap analysis"}
+                style={{
+                  ...inputStyle,
+                  resize: "vertical",
+                  fontFamily: "var(--font-jost)",
+                  lineHeight: 1.5,
+                }}
               />
             </div>
 

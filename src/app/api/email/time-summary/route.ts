@@ -12,10 +12,11 @@ type Body = {
   weekEnd: string;
   recipientEmail: string;
   recipientName: string;
+  highlights?: string;
 };
 
 export async function POST(request: Request) {
-  const { weekStart, weekEnd, recipientEmail, recipientName } =
+  const { weekStart, weekEnd, recipientEmail, recipientName, highlights } =
     (await request.json()) as Body;
 
   if (!weekStart || !weekEnd || !recipientEmail || !recipientName) {
@@ -94,12 +95,33 @@ export async function POST(request: Request) {
     ? `<tr><td colspan="3" style="padding:20px;text-align:center;font-family:Arial,sans-serif;font-size:13px;color:#777;">No time entries logged this week.</td></tr>`
     : "";
 
+  const highlightLines = (highlights ?? "")
+    .split(/\r?\n/)
+    .map((line) => line.trim().replace(/^[•\-]\s*/, "").trim())
+    .filter((line) => line.length > 0);
+
+  const highlightsHtml =
+    highlightLines.length > 0
+      ? `<div style="border-left:3px solid #2d4a3e;padding-left:16px;margin-bottom:28px;">
+          <div style="font-family:'Syne',Arial,sans-serif;font-size:13px;font-weight:600;color:#2d4a3e;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Key Highlights</div>
+          <ul style="list-style:none;padding:0;margin:0;">
+            ${highlightLines
+              .map(
+                (line) =>
+                  `<li style="color:#3d3530;font-size:14px;line-height:1.6;padding-left:16px;margin-bottom:4px;position:relative;"><span style="color:#2d4a3e;position:absolute;left:0;">•</span>${escapeHtml(line)}</li>`
+              )
+              .join("")}
+          </ul>
+        </div>`
+      : "";
+
   const html = `<!doctype html>
 <html>
   <body style="margin:0;padding:24px;background:#f4f1ea;font-family:Arial,sans-serif;color:#2a2a2a;">
     <div style="max-width:680px;margin:0 auto;background:#ffffff;border-radius:8px;padding:28px;">
       <p style="font-size:15px;margin:0 0 16px 0;">Hi ${escapeHtml(recipientName)},</p>
       <p style="font-size:14px;margin:0 0 20px 0;color:#444;">Here is the weekly time summary for ${weekStart} – ${weekEnd}.</p>
+      ${highlightsHtml}
       <table style="width:100%;border-collapse:collapse;">
         <thead>
           <tr style="background:${headerBg};">
@@ -133,7 +155,7 @@ export async function POST(request: Request) {
   const { error } = await resend.emails.send({
     from,
     to: [recipientEmail],
-    subject: `Weekly Update: ${weekStart} – ${weekEnd} | AaraSaan Consulting`,
+    subject: `Weekly Summary & Progress Update for ${weekStart} – ${weekEnd}`,
     html,
   });
 
