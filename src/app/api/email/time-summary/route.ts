@@ -105,7 +105,7 @@ export async function POST(request: Request) {
             ${highlightLines
               .map(
                 (line) =>
-                  `<li style="color:#3d3530;font-size:14px;line-height:1.6;padding-left:16px;margin-bottom:4px;position:relative;"><span style="color:#2d4a3e;position:absolute;left:0;">•</span>${escapeHtml(line)}</li>`
+                  `<li style="color:#3d3530;font-size:14px;line-height:1.6;padding-left:16px;margin-bottom:4px;position:relative;"><span style="color:#2d4a3e;position:absolute;left:0;">•</span><span style="margin-left:4px;">${escapeHtml(line)}</span></li>`
               )
               .join("")}
           </ul>
@@ -117,7 +117,7 @@ export async function POST(request: Request) {
   <body style="margin:0;padding:24px;background:#f4f1ea;font-family:Arial,sans-serif;color:#2a2a2a;">
     <div style="max-width:680px;margin:0 auto;background:#ffffff;border-radius:8px;padding:28px;">
       <p style="font-size:15px;margin:0 0 16px 0;">Hi ${escapeHtml(recipientName)},</p>
-      <p style="font-size:14px;margin:0 0 20px 0;color:#444;">Here is the weekly time summary for ${weekStart} – ${weekEnd}.</p>
+      <p style="font-size:14px;margin:0 0 20px 0;color:#444;">Here is the weekly time summary for ${formatWeekRange(weekStart, weekEnd)}.</p>
       ${highlightsHtml}
       <table style="width:100%;border-collapse:collapse;">
         <thead>
