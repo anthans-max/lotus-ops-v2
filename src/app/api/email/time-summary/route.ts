@@ -47,8 +47,6 @@ export async function POST(request: Request) {
     )
     .orderBy(asc(timeEntries.date));
 
-  const totalHours = rows.reduce((sum, r) => sum + parseFloat(r.hours), 0);
-
   const headerBg = "#2d4a3e";
   const altBg = "#f9f7f2";
 
@@ -62,7 +60,7 @@ export async function POST(request: Request) {
 
   const groupsHtml = Array.from(groups.entries())
     .map(([groupLabel, groupRows]) => {
-      const headingRow = `<tr><td colspan="3" style="background:${headerBg};color:#ffffff;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;padding:8px 12px;">${escapeHtml(groupLabel)}</td></tr>`;
+      const headingRow = `<tr><td colspan="2" style="background:${headerBg};color:#ffffff;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;padding:8px 12px;">${escapeHtml(groupLabel)}</td></tr>`;
       const entryRows = groupRows
         .map((r, i) => {
           const bg = i % 2 === 0 ? "#ffffff" : altBg;
@@ -82,7 +80,6 @@ export async function POST(request: Request) {
               : escapeHtml(rawDesc);
           return `<tr style="background:${bg};">
         <td style="padding:10px 12px;border-bottom:1px solid #e6e1d6;font-family:Arial,sans-serif;font-size:13px;color:#2a2a2a;">${r.date}</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #e6e1d6;font-family:Arial,sans-serif;font-size:13px;color:#2a2a2a;text-align:right;">${parseFloat(r.hours).toFixed(2)}</td>
         <td style="padding:10px 12px;border-bottom:1px solid #e6e1d6;font-family:Arial,sans-serif;font-size:13px;color:#2a2a2a;">${descHtml}</td>
       </tr>`;
         })
@@ -92,7 +89,7 @@ export async function POST(request: Request) {
     .join("");
 
   const emptyRow = rows.length === 0
-    ? `<tr><td colspan="3" style="padding:20px;text-align:center;font-family:Arial,sans-serif;font-size:13px;color:#777;">No time entries logged this week.</td></tr>`
+    ? `<tr><td colspan="2" style="padding:20px;text-align:center;font-family:Arial,sans-serif;font-size:13px;color:#777;">No time entries logged this week.</td></tr>`
     : "";
 
   const highlightLines = (highlights ?? "")
@@ -126,7 +123,6 @@ export async function POST(request: Request) {
         <thead>
           <tr style="background:${headerBg};">
             <th style="padding:10px 12px;text-align:left;font-family:Arial,sans-serif;font-size:12px;letterSpacing:0.08em;color:#ffffff;text-transform:uppercase;">Date</th>
-            <th style="padding:10px 12px;text-align:right;font-family:Arial,sans-serif;font-size:12px;color:#ffffff;text-transform:uppercase;">Hours</th>
             <th style="padding:10px 12px;text-align:left;font-family:Arial,sans-serif;font-size:12px;color:#ffffff;text-transform:uppercase;">Description</th>
           </tr>
         </thead>
@@ -134,16 +130,6 @@ export async function POST(request: Request) {
           ${groupsHtml}
           ${emptyRow}
         </tbody>
-        <tfoot>
-          <tr style="background:${altBg};">
-            <td style="padding:12px;font-family:Arial,sans-serif;font-size:13px;font-weight:600;color:#2a2a2a;text-align:right;">Total</td>
-            <td style="padding:12px;font-family:Arial,sans-serif;font-size:13px;font-weight:600;color:#2a2a2a;text-align:right;">${totalHours.toFixed(2)}</td>
-            <td style="padding:12px;"></td>
-          </tr>
-          <tr>
-            <td colspan="3" style="padding:6px 12px 0 12px;font-family:Arial,sans-serif;font-size:11px;color:#888;text-align:right;">Retainer: 20 hrs/week</td>
-          </tr>
-        </tfoot>
       </table>
       <p style="margin-top:32px;font-family:Arial,sans-serif;font-size:11px;color:#999;text-align:center;">Sent from Lotus Ops · AaraSaan Consulting</p>
     </div>
@@ -155,7 +141,7 @@ export async function POST(request: Request) {
   const { error } = await resend.emails.send({
     from,
     to: [recipientEmail],
-    subject: `Weekly Summary & Progress Update for ${weekStart} – ${weekEnd}`,
+    subject: `Weekly Summary & Progress Update for ${formatWeekRange(weekStart, weekEnd)}`,
     html,
   });
 
@@ -173,4 +159,17 @@ function escapeHtml(s: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+function formatWeekRange(weekStart: string, weekEnd: string): string {
+  const start = new Date(`${weekStart}T00:00:00`);
+  const end = new Date(`${weekEnd}T00:00:00`);
+  const startMonth = start.toLocaleDateString("en-US", { month: "short" });
+  const endMonth = end.toLocaleDateString("en-US", { month: "short" });
+  const startDay = start.getDate();
+  const endDay = end.getDate();
+  if (startMonth === endMonth) {
+    return `${startMonth} ${startDay}\u2013${endDay}`;
+  }
+  return `${startMonth} ${startDay}\u2013${endMonth} ${endDay}`;
 }

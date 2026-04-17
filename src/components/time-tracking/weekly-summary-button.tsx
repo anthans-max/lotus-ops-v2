@@ -15,6 +15,17 @@ function fmtDate(d: Date): string {
   return d.toISOString().slice(0, 10);
 }
 
+function formatWeekRange(start: Date, end: Date): string {
+  const startMonth = start.toLocaleDateString("en-US", { month: "short" });
+  const endMonth = end.toLocaleDateString("en-US", { month: "short" });
+  const startDay = start.getDate();
+  const endDay = end.getDate();
+  if (startMonth === endMonth) {
+    return `${startMonth} ${startDay}\u2013${endDay}`;
+  }
+  return `${startMonth} ${startDay}\u2013${endMonth} ${endDay}`;
+}
+
 export function WeeklySummaryButton() {
   const [open, setOpen] = useState(false);
   // TODO: replace with Jack's email
@@ -26,10 +37,14 @@ export function WeeklySummaryButton() {
     { type: "success" | "error"; text: string } | null
   >(null);
 
-  const { weekStart, weekEnd } = useMemo(() => {
+  const { weekStart, weekEnd, weekRangeLabel } = useMemo(() => {
     const start = getMondayOf(new Date());
-    const end = new Date(start.getTime() + 6 * 86400000);
-    return { weekStart: fmtDate(start), weekEnd: fmtDate(end) };
+    const end = new Date(start.getTime() + 4 * 86400000);
+    return {
+      weekStart: fmtDate(start),
+      weekEnd: fmtDate(end),
+      weekRangeLabel: formatWeekRange(start, end),
+    };
   }, []);
 
   const handleSend = async () => {
@@ -199,7 +214,7 @@ export function WeeklySummaryButton() {
                   borderRadius: 6,
                 }}
               >
-                {weekStart} → {weekEnd}
+                {weekRangeLabel}
               </div>
             </div>
 
