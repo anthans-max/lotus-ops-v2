@@ -88,12 +88,19 @@ export async function GET(
   `
 
   const browser = await getBrowser()
-  const page = await browser.newPage()
-  await page.setContent(styledHtml, { waitUntil: 'networkidle0' })
-  const pdfBuffer = await page.pdf({ format: 'A4', printBackground: true, margin: { top: '20mm', bottom: '20mm', left: '20mm', right: '20mm' } })
-  await page.close()
+  let pdfBuffer: Buffer
+  try {
+    const page = await browser.newPage()
+    await page.setContent(styledHtml, { waitUntil: 'networkidle0' })
+    pdfBuffer = Buffer.from(
+      await page.pdf({ format: 'A4', printBackground: true, margin: { top: '20mm', bottom: '20mm', left: '20mm', right: '20mm' } }),
+    )
+    await page.close()
+  } finally {
+    await browser.close()
+  }
 
-  return new Response(Buffer.from(pdfBuffer), {
+  return new Response(new Uint8Array(pdfBuffer), {
     headers: {
       'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename="contract-${contract.contractNumber}.pdf"`,

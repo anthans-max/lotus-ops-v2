@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
     "@sparticuz/chromium",
     "@react-pdf/renderer",
   ],
+  outputFileTracingIncludes: {
+    "/api/pdf/invoice/[id]": ["./node_modules/@sparticuz/chromium/**/*"],
+    "/api/pdf/contract/[id]": ["./node_modules/@sparticuz/chromium/**/*"],
+  },
   turbopack: {},
   experimental: {
     serverActions: {

@@ -1,18 +1,12 @@
 import chromium from '@sparticuz/chromium';
-import puppeteerCore from 'puppeteer-core';
-
-let _browser: any = null;
+import puppeteer from 'puppeteer-core';
 
 export async function getBrowser() {
-  if (_browser) return _browser;
-
-  _browser = await puppeteerCore.launch({
+  const executablePath = await chromium.executablePath();
+  return puppeteer.launch({
     args: chromium.args,
-    executablePath: process.env.VERCEL
-      ? await chromium.executablePath()
-      : '/usr/bin/chromium-browser', // or '/usr/bin/google-chrome' locally
-    headless: true,
+    defaultViewport: chromium.defaultViewport,
+    executablePath,
+    headless: chromium.headless,
   });
-
-  return _browser;
 }
