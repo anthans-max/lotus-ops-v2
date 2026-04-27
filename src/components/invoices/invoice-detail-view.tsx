@@ -58,7 +58,33 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
   const [voidOpen, setVoidOpen] = useState(false);
   const [emailStatus, setEmailStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  const handleDownload = async () => {
+    setError(null);
+    setIsDownloading(true);
+    try {
+      const res = await fetch(`/api/pdf/invoice/${invoice.id}`);
+      if (!res.ok) {
+        setError(`Failed to generate PDF (${res.status}).`);
+        return;
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${invoice.invoiceNumber}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      setError("Failed to download PDF.");
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   const handleSend = () => {
     startTransition(async () => {
@@ -180,10 +206,9 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
         </div>
 
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          <a
-            href={`/api/pdf/invoice/${invoice.id}`}
-            target="_blank"
-            rel="noreferrer"
+          <button
+            onClick={handleDownload}
+            disabled={isDownloading}
             style={{
               background: "var(--green)",
               color: "#FFFFFF",
@@ -195,13 +220,12 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
               fontFamily: "var(--font-jost)",
               fontWeight: 500,
               letterSpacing: "0.06em",
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
+              cursor: isDownloading ? "not-allowed" : "pointer",
+              opacity: isDownloading ? 0.7 : 1,
             }}
           >
-            Download PDF
-          </a>
+            {isDownloading ? "Downloading…" : "Download PDF"}
+          </button>
           {invoice.status === "draft" && (
             <button
               onClick={handleSend}
