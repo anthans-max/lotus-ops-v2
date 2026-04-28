@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import Link from "next/link";
 import {
   sendInvoice,
@@ -9,16 +9,10 @@ import {
   addLineItem,
   updateLineItem,
   deleteLineItem,
-  attachFileToInvoice,
-  detachFileFromInvoice,
   type Invoice,
   type InvoiceLineItem,
 } from "@/app/actions/invoices";
-import { createClient } from "@/lib/supabase/client";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
-
-const ATTACHMENT_ACCEPT = "application/pdf,image/png,image/jpeg,image/webp";
-const ATTACHMENT_MAX_BYTES = 20 * 1024 * 1024;
 
 function StatusBadge({ status }: { status: string | null }) {
   const map: Record<string, { bg: string; color: string }> = {
@@ -66,11 +60,6 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
   const [error, setError] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [isPending, startTransition] = useTransition();
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [uploading, setUploading] = useState(false);
-  const [attachmentStatus, setAttachmentStatus] = useState<string | null>(null);
-  const [attachmentBusy, setAttachmentBusy] = useState<null | "view" | "download" | "remove">(null);
 
   const handleDownload = async () => {
     setError(null);
@@ -143,105 +132,8 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
     });
   };
 
-  const handlePickFile = () => {
-    setError(null);
-    fileInputRef.current?.click();
-  };
-
-  const handleUpload = async (file: File) => {
-    setError(null);
-    if (file.size > ATTACHMENT_MAX_BYTES) {
-      setError("File exceeds 20 MB.");
-      return;
-    }
-    setUploading(true);
-    try {
-      const sanitized = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      const path = `${invoice.id}/${Date.now()}-${sanitized}`;
-      const supabase = createClient();
-      const { error: upErr } = await supabase.storage
-        .from("invoice-docs")
-        .upload(path, file, { contentType: file.type, upsert: false });
-      if (upErr) {
-        setError(upErr.message);
-        return;
-      }
-      const result = await attachFileToInvoice(invoice.id, {
-        filePath: path,
-        fileSize: file.size,
-        mimeType: file.type,
-      });
-      if (!result.success) {
-        // Best-effort rollback of the orphan storage object.
-        await supabase.storage.from("invoice-docs").remove([path]);
-        setError(result.error);
-        return;
-      }
-      setAttachmentStatus("Uploaded");
-      setTimeout(() => setAttachmentStatus(null), 3000);
-    } catch (e) {
-      setError((e as Error).message);
-    } finally {
-      setUploading(false);
-      if (fileInputRef.current) fileInputRef.current.value = "";
-    }
-  };
-
-  const fetchAttachmentUrl = async (download: boolean): Promise<string | null> => {
-    setError(null);
-    const res = await fetch(
-      `/api/invoices/${invoice.id}/signed-url${download ? "?download=1" : ""}`
-    );
-    if (!res.ok) {
-      const body = await res.json().catch(() => ({}));
-      setError(body?.error ?? "Could not generate link.");
-      return null;
-    }
-    const body = await res.json();
-    return body.url as string;
-  };
-
-  const handleViewAttachment = async () => {
-    setAttachmentBusy("view");
-    try {
-      const url = await fetchAttachmentUrl(false);
-      if (url) window.open(url, "_blank", "noopener,noreferrer");
-    } finally {
-      setAttachmentBusy(null);
-    }
-  };
-
-  const handleDownloadAttachment = async () => {
-    setAttachmentBusy("download");
-    try {
-      const url = await fetchAttachmentUrl(true);
-      if (!url) return;
-      const a = document.createElement("a");
-      a.href = url;
-      a.rel = "noopener";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    } finally {
-      setAttachmentBusy(null);
-    }
-  };
-
-  const handleRemoveAttachment = async () => {
-    if (!confirm("Remove the attached file from this invoice?")) return;
-    setAttachmentBusy("remove");
-    setError(null);
-    try {
-      const result = await detachFileFromInvoice(invoice.id);
-      if (!result.success) {
-        setError(result.error);
-        return;
-      }
-      setAttachmentStatus("Removed");
-      setTimeout(() => setAttachmentStatus(null), 3000);
-    } finally {
-      setAttachmentBusy(null);
-    }
+  const handleViewPdf = () => {
+    window.open(`/api/pdf/invoice/${invoice.id}`, "_blank", "noopener,noreferrer");
   };
 
   const labelStyle: React.CSSProperties = {
@@ -318,6 +210,24 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
         </div>
 
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <button
+            onClick={handleViewPdf}
+            style={{
+              background: "var(--green)",
+              color: "#FFFFFF",
+              border: "none",
+              borderRadius: 100,
+              padding: "10px 16px",
+              minHeight: 44,
+              fontSize: "0.68rem",
+              fontFamily: "var(--font-jost)",
+              fontWeight: 500,
+              letterSpacing: "0.06em",
+              cursor: "pointer",
+            }}
+          >
+            View PDF
+          </button>
           <button
             onClick={handleDownload}
             disabled={isDownloading}
@@ -566,168 +476,6 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
             </p>
           </div>
         )}
-      </div>
-
-      {/* Attachment */}
-      <div
-        style={{
-          background: "var(--surface)",
-          border: "1px solid var(--border)",
-          borderRadius: 10,
-          padding: 16,
-          marginBottom: 24,
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-          flexWrap: "wrap",
-        }}
-      >
-        <span style={{ ...labelStyle, marginBottom: 0 }}>Attachment</span>
-        {invoice.filePath ? (
-          <>
-            <span
-              style={{
-                fontFamily: "var(--font-jost)",
-                fontSize: 13,
-                color: "var(--text)",
-                wordBreak: "break-all",
-              }}
-            >
-              {invoice.filePath.split("/").pop()}
-              {typeof invoice.fileSize === "number" && (
-                <span style={{ color: "var(--text-muted)", marginLeft: 8 }}>
-                  ({(invoice.fileSize / 1024).toFixed(0)} KB)
-                </span>
-              )}
-            </span>
-            <div style={{ marginLeft: "auto", display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <button
-                onClick={handleViewAttachment}
-                disabled={attachmentBusy !== null || uploading}
-                style={{
-                  background: "var(--green)",
-                  color: "#FFFFFF",
-                  border: "none",
-                  borderRadius: 100,
-                  padding: "8px 14px",
-                  fontFamily: "var(--font-jost)",
-                  fontSize: "0.68rem",
-                  fontWeight: 500,
-                  letterSpacing: "0.06em",
-                  cursor: attachmentBusy ? "not-allowed" : "pointer",
-                  opacity: attachmentBusy === "view" ? 0.7 : 1,
-                }}
-              >
-                {attachmentBusy === "view" ? "Opening…" : "View"}
-              </button>
-              <button
-                onClick={handleDownloadAttachment}
-                disabled={attachmentBusy !== null || uploading}
-                style={{
-                  background: "var(--green)",
-                  color: "#FFFFFF",
-                  border: "none",
-                  borderRadius: 100,
-                  padding: "8px 14px",
-                  fontFamily: "var(--font-jost)",
-                  fontSize: "0.68rem",
-                  fontWeight: 500,
-                  letterSpacing: "0.06em",
-                  cursor: attachmentBusy ? "not-allowed" : "pointer",
-                  opacity: attachmentBusy === "download" ? 0.7 : 1,
-                }}
-              >
-                {attachmentBusy === "download" ? "Preparing…" : "Download"}
-              </button>
-              <button
-                onClick={handlePickFile}
-                disabled={uploading || attachmentBusy !== null}
-                style={{
-                  background: "transparent",
-                  color: "var(--text)",
-                  border: "1px solid var(--border-dark)",
-                  borderRadius: 100,
-                  padding: "8px 14px",
-                  fontFamily: "var(--font-jost)",
-                  fontSize: "0.68rem",
-                  fontWeight: 500,
-                  letterSpacing: "0.06em",
-                  cursor: uploading ? "not-allowed" : "pointer",
-                  opacity: uploading ? 0.7 : 1,
-                }}
-              >
-                {uploading ? "Uploading…" : "Replace"}
-              </button>
-              <button
-                onClick={handleRemoveAttachment}
-                disabled={uploading || attachmentBusy !== null}
-                style={{
-                  background: "transparent",
-                  color: "var(--red)",
-                  border: "1px solid var(--red)",
-                  borderRadius: 100,
-                  padding: "8px 14px",
-                  fontFamily: "var(--font-jost)",
-                  fontSize: "0.68rem",
-                  fontWeight: 500,
-                  letterSpacing: "0.06em",
-                  cursor: attachmentBusy ? "not-allowed" : "pointer",
-                  opacity: attachmentBusy === "remove" ? 0.7 : 1,
-                }}
-              >
-                {attachmentBusy === "remove" ? "Removing…" : "Remove"}
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <span style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text-muted)" }}>
-              No file attached
-            </span>
-            <button
-              onClick={handlePickFile}
-              disabled={uploading}
-              style={{
-                marginLeft: "auto",
-                background: "var(--green)",
-                color: "#FFFFFF",
-                border: "none",
-                borderRadius: 100,
-                padding: "8px 14px",
-                fontFamily: "var(--font-jost)",
-                fontSize: "0.68rem",
-                fontWeight: 500,
-                letterSpacing: "0.06em",
-                cursor: uploading ? "not-allowed" : "pointer",
-                opacity: uploading ? 0.7 : 1,
-              }}
-            >
-              {uploading ? "Uploading…" : "Upload File"}
-            </button>
-          </>
-        )}
-        {attachmentStatus && (
-          <span
-            style={{
-              fontFamily: "var(--font-jost)",
-              fontSize: 12,
-              color: "var(--green)",
-              marginLeft: 8,
-            }}
-          >
-            {attachmentStatus}
-          </span>
-        )}
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept={ATTACHMENT_ACCEPT}
-          style={{ display: "none" }}
-          onChange={(e) => {
-            const f = e.target.files?.[0];
-            if (f) handleUpload(f);
-          }}
-        />
       </div>
 
       {/* Line Items */}
