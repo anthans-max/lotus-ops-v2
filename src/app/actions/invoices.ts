@@ -130,13 +130,21 @@ export async function updateInvoice(
 export async function deleteInvoice(id: string): Promise<ActionResult<undefined>> {
   try {
     const [inv] = await db
-      .select({ status: invoices.status })
+      .select({ status: invoices.status, filePath: invoices.filePath })
       .from(invoices)
       .where(eq(invoices.id, id))
 
     if (!inv) return { success: false, error: 'Invoice not found.' }
     if (inv.status === 'sent' || inv.status === 'paid') {
       return { success: false, error: 'Cannot delete a sent or paid invoice.' }
+    }
+
+    if (inv.filePath) {
+      const { createAdminClient } = await import('@/lib/supabase/admin')
+      const { error: rmErr } = await createAdminClient()
+        .storage.from('invoice-docs')
+        .remove([inv.filePath])
+      if (rmErr) console.error('Storage cleanup failed for invoice', id, rmErr)
     }
 
     // Un-mark any linked time entries
@@ -150,6 +158,80 @@ export async function deleteInvoice(id: string): Promise<ActionResult<undefined>
 
     revalidatePath('/invoices')
     revalidatePath('/time-tracking')
+    return { success: true, data: undefined }
+  } catch (e) {
+    return { success: false, error: (e as Error).message }
+  }
+}
+
+export async function attachFileToInvoice(
+  id: string,
+  meta: { filePath: string; fileSize: number; mimeType: string }
+): Promise<ActionResult<undefined>> {
+  try {
+    if (!meta.filePath.startsWith(`${id}/`) || meta.filePath.includes('..')) {
+      return { success: false, error: 'Invalid file path for this invoice.' }
+    }
+
+    const [prev] = await db
+      .select({ filePath: invoices.filePath })
+      .from(invoices)
+      .where(eq(invoices.id, id))
+
+    if (!prev) return { success: false, error: 'Invoice not found.' }
+
+    await db
+      .update(invoices)
+      .set({
+        filePath: meta.filePath,
+        fileSize: meta.fileSize,
+        mimeType: meta.mimeType,
+        updatedAt: new Date(),
+      })
+      .where(eq(invoices.id, id))
+
+    if (prev.filePath && prev.filePath !== meta.filePath) {
+      const { createAdminClient } = await import('@/lib/supabase/admin')
+      const { error: rmErr } = await createAdminClient()
+        .storage.from('invoice-docs')
+        .remove([prev.filePath])
+      if (rmErr) console.error('Failed to remove prior attachment', id, rmErr)
+    }
+
+    revalidatePath(`/invoices/${id}`)
+    revalidatePath('/invoices')
+    return { success: true, data: undefined }
+  } catch (e) {
+    return { success: false, error: (e as Error).message }
+  }
+}
+
+export async function detachFileFromInvoice(
+  id: string
+): Promise<ActionResult<undefined>> {
+  try {
+    const [inv] = await db
+      .select({ filePath: invoices.filePath })
+      .from(invoices)
+      .where(eq(invoices.id, id))
+
+    if (!inv) return { success: false, error: 'Invoice not found.' }
+
+    if (inv.filePath) {
+      const { createAdminClient } = await import('@/lib/supabase/admin')
+      const { error: rmErr } = await createAdminClient()
+        .storage.from('invoice-docs')
+        .remove([inv.filePath])
+      if (rmErr) console.error('Failed to remove attachment', id, rmErr)
+    }
+
+    await db
+      .update(invoices)
+      .set({ filePath: null, fileSize: null, mimeType: null, updatedAt: new Date() })
+      .where(eq(invoices.id, id))
+
+    revalidatePath(`/invoices/${id}`)
+    revalidatePath('/invoices')
     return { success: true, data: undefined }
   } catch (e) {
     return { success: false, error: (e as Error).message }
