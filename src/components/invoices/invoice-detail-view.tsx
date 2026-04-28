@@ -61,29 +61,11 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isPending, startTransition] = useTransition();
 
-  const handleDownload = async () => {
-    setError(null);
-    setIsDownloading(true);
-    try {
-      const res = await fetch(`/api/pdf/invoice/${invoice.id}`);
-      if (!res.ok) {
-        setError(`Failed to generate PDF (${res.status}).`);
-        return;
-      }
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${invoice.invoiceNumber}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    } catch {
-      setError("Failed to download PDF.");
-    } finally {
-      setIsDownloading(false);
-    }
+  const handleDownload = () => {
+    const a = document.createElement("a");
+    a.href = `/api/pdf/invoice/${invoice.id}`;
+    a.download = `${invoice.invoiceNumber}.pdf`;
+    a.click();
   };
 
   const handleSend = () => {
