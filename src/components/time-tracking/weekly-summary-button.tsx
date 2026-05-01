@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 function getMondayOf(date: Date): Date {
   const d = new Date(date);
@@ -33,6 +33,8 @@ export function WeeklySummaryButton() {
   const [recipientName, setRecipientName] = useState("");
   const [highlights, setHighlights] = useState("");
   const [sending, setSending] = useState(false);
+  const [generating, setGenerating] = useState(false);
+  const [genFailed, setGenFailed] = useState(false);
   const [message, setMessage] = useState<
     { type: "success" | "error"; text: string } | null
   >(null);
@@ -46,6 +48,40 @@ export function WeeklySummaryButton() {
       weekRangeLabel: formatWeekRange(start, end),
     };
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    if (highlights.trim() !== "") return;
+    let cancelled = false;
+    setGenerating(true);
+    setGenFailed(false);
+    fetch("/api/time-tracking/generate-highlights", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ from: weekStart, to: weekEnd }),
+    })
+      .then(async (res) => {
+        const data = (await res.json()) as {
+          highlights?: string;
+          error?: string;
+        };
+        if (cancelled) return;
+        if (res.ok && data.highlights) {
+          setHighlights((prev) => (prev.trim() === "" ? data.highlights! : prev));
+        } else if (!res.ok) {
+          setGenFailed(true);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setGenFailed(true);
+      })
+      .finally(() => {
+        if (!cancelled) setGenerating(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [open, weekStart, weekEnd, highlights]);
 
   const handleSend = async () => {
     setSending(true);
@@ -82,6 +118,7 @@ export function WeeklySummaryButton() {
     if (sending) return;
     setOpen(false);
     setMessage(null);
+    setGenFailed(false);
   };
 
   const inputStyle: React.CSSProperties = {
@@ -192,7 +229,11 @@ export function WeeklySummaryButton() {
                 value={highlights}
                 onChange={(e) => setHighlights(e.target.value)}
                 rows={5}
-                placeholder={"• Established foundational structure for project portfolio\n• Completed initial discovery across key systems\n• Began customer portal requirements and gap analysis"}
+                placeholder={
+                  generating
+                    ? "Generating highlights…"
+                    : "• Established foundational structure for project portfolio\n• Completed initial discovery across key systems\n• Began customer portal requirements and gap analysis"
+                }
                 style={{
                   ...inputStyle,
                   resize: "vertical",
@@ -200,6 +241,18 @@ export function WeeklySummaryButton() {
                   lineHeight: 1.5,
                 }}
               />
+              {genFailed && !generating && highlights === "" && (
+                <div
+                  style={{
+                    fontFamily: "var(--font-jost)",
+                    fontSize: 12,
+                    color: "var(--text-muted)",
+                    marginTop: 6,
+                  }}
+                >
+                  Could not generate highlights — type manually.
+                </div>
+              )}
             </div>
 
             <div style={{ marginBottom: 20 }}>
