@@ -5,6 +5,7 @@ import { TimeTrackingTable } from "./time-tracking-table";
 import { TimeTrackingCards } from "./time-tracking-cards";
 import { TimeEntryForm, type ProjectOption } from "./time-entry-form";
 import { WeeklySummaryButton } from "./weekly-summary-button";
+import { ExportCsvButton } from "./export-csv-button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import {
   deleteTimeEntry,
@@ -361,6 +362,7 @@ export function TimeTrackingView({
               </button>
             )}
             <WeeklySummaryButton />
+            <ExportCsvButton />
             <button
               onClick={() => setAddOpen(true)}
               disabled={projectOptions.length === 0}
