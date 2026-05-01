@@ -21,6 +21,7 @@ export const appSettings = pgTable("app_settings", {
   invoicePrefix: text("invoice_prefix").default("INV"),
   contractPrefix: text("contract_prefix").default("LAI"),
   invoiceStartNumber: integer("invoice_start_number").default(1001),
+  invoiceSequenceYear: integer("invoice_sequence_year"),
   contractStartNumber: integer("contract_start_number").default(1001),
   taxName: text("tax_name").default("Tax"),
   taxRate: numeric("tax_rate").default("0"),

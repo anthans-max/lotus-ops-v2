@@ -13,9 +13,16 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
 
   // Numbering
   const [invoicePrefix, setInvoicePrefix] = useState(settings.invoicePrefix ?? "INV");
-  const [invoiceStartNumber, setInvoiceStartNumber] = useState(String(settings.invoiceStartNumber ?? 1001));
   const [contractPrefix, setContractPrefix] = useState(settings.contractPrefix ?? "LAI");
   const [contractStartNumber, setContractStartNumber] = useState(String(settings.contractStartNumber ?? 1001));
+
+  // Preview of next invoice number. The stored sequence resets each calendar
+  // year, so the preview reflects the same logic the generator uses.
+  const currentYear = new Date().getFullYear();
+  const storedYear = settings.invoiceSequenceYear ?? null;
+  const storedNext = settings.invoiceStartNumber ?? 0;
+  const nextInvoiceSeq = storedYear === currentYear ? storedNext + 1 : 1;
+  const nextInvoicePreview = `${invoicePrefix || "INV"}-${currentYear}-${String(nextInvoiceSeq).padStart(3, "0")}`;
 
   // Tax
   const [taxName, setTaxName] = useState(settings.taxName ?? "Tax");
@@ -43,7 +50,6 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
         companyEmail: companyEmail || undefined,
         companyPhone: companyPhone || undefined,
         invoicePrefix,
-        invoiceStartNumber: parseInt(invoiceStartNumber) || 1001,
         contractPrefix,
         contractStartNumber: parseInt(contractStartNumber) || 1001,
         taxName,
@@ -217,14 +223,18 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
             />
           </div>
           <div>
-            <label style={labelStyle}>Invoice Start Number</label>
-            <input
-              type="number"
-              min="1"
-              value={invoiceStartNumber}
-              onChange={(e) => setInvoiceStartNumber(e.target.value)}
-              style={inputStyle}
-            />
+            <label style={labelStyle}>Next Invoice</label>
+            <div
+              style={{
+                ...inputStyle,
+                background: "var(--surface)",
+                color: "var(--text-dim)",
+                cursor: "default",
+                userSelect: "text",
+              }}
+            >
+              {nextInvoicePreview}
+            </div>
           </div>
           <div>
             <label style={labelStyle}>Contract Prefix</label>

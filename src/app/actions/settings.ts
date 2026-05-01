@@ -27,7 +27,6 @@ export async function updateSettings(input: {
   logoUrl?: string
   invoicePrefix?: string
   contractPrefix?: string
-  invoiceStartNumber?: number
   contractStartNumber?: number
   taxName?: string
   taxRate?: string | number

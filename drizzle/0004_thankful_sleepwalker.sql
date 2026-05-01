@@ -1,0 +1,1 @@
+ALTER TABLE "app_settings" ADD COLUMN "invoice_sequence_year" integer;
