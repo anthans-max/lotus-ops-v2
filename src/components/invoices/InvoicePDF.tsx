@@ -176,7 +176,41 @@ const styles = StyleSheet.create({
     color: "#7A6045",
     lineHeight: 1.5,
   },
+  summarySection: {
+    marginTop: 24,
+    padding: 12,
+    backgroundColor: "#F5F1E8",
+    borderRadius: 4,
+  },
+  summaryBullet: {
+    marginBottom: 6,
+  },
+  summaryBulletTitle: {
+    fontFamily: "Helvetica-Bold",
+    fontSize: 10,
+    color: "#3D2E1E",
+  },
+  summaryBulletBody: {
+    fontFamily: "Helvetica",
+    fontSize: 10,
+    color: "#3D2E1E",
+  },
 });
+
+const formatUSD = (n: number | string) =>
+  Number(n).toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  });
+
+const formatPhone = (phone: string) => {
+  const digits = phone.replace(/\D/g, "");
+  if (digits.length === 10) {
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+  return phone;
+};
 
 export interface InvoicePDFData {
   invoiceNumber: string;
@@ -184,6 +218,7 @@ export interface InvoicePDFData {
   dueDate: string;
   status: string;
   notes: string | null;
+  summary: string | null;
   subtotal: string;
   taxAmount: string;
   taxName: string;
@@ -206,6 +241,17 @@ export interface InvoicePDFData {
 }
 
 export function InvoicePDF({ data }: { data: InvoicePDFData }) {
+  const [iy, im] = data.issueDate.split("-").map(Number);
+  const periodStart = new Date(iy, im - 2, 1);
+  const periodEnd = new Date(iy, im - 1, 0);
+  const fmt = (d: Date) =>
+    d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  const servicePeriod = `${fmt(periodStart)} – ${fmt(periodEnd)}`;
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -220,7 +266,7 @@ export function InvoicePDF({ data }: { data: InvoicePDFData }) {
               <Text style={styles.companyDetail}>{data.companyEmail}</Text>
             )}
             {data.companyPhone && (
-              <Text style={styles.companyDetail}>{data.companyPhone}</Text>
+              <Text style={styles.companyDetail}>{formatPhone(data.companyPhone)}</Text>
             )}
           </View>
           <View>
@@ -249,6 +295,10 @@ export function InvoicePDF({ data }: { data: InvoicePDFData }) {
           </View>
           <View style={styles.dateBlock}>
             <View style={{ marginBottom: 10 }}>
+              <Text style={styles.dateLabel}>Service Period</Text>
+              <Text style={styles.dateValue}>{servicePeriod}</Text>
+            </View>
+            <View style={{ marginBottom: 10 }}>
               <Text style={styles.dateLabel}>Issue Date</Text>
               <Text style={styles.dateValue}>{data.issueDate}</Text>
             </View>
@@ -270,8 +320,8 @@ export function InvoicePDF({ data }: { data: InvoicePDFData }) {
           <View key={item.id} style={styles.tableRow}>
             <Text style={[styles.tableCell, styles.col_desc]}>{item.description}</Text>
             <Text style={[styles.tableCell, styles.col_qty]}>{Number(item.quantity).toFixed(2)}</Text>
-            <Text style={[styles.tableCell, styles.col_rate]}>${Number(item.rate).toFixed(2)}</Text>
-            <Text style={[styles.tableCell, styles.col_amount]}>${Number(item.amount).toFixed(2)}</Text>
+            <Text style={[styles.tableCell, styles.col_rate]}>{formatUSD(item.rate)}</Text>
+            <Text style={[styles.tableCell, styles.col_amount]}>{formatUSD(item.amount)}</Text>
           </View>
         ))}
 
@@ -279,33 +329,59 @@ export function InvoicePDF({ data }: { data: InvoicePDFData }) {
         <View style={styles.totalsSection}>
           <View style={styles.totalRow}>
             <Text style={styles.totalLabel}>Subtotal</Text>
-            <Text style={styles.totalValue}>${Number(data.subtotal).toFixed(2)}</Text>
+            <Text style={styles.totalValue}>{formatUSD(data.subtotal)}</Text>
           </View>
           {Number(data.taxAmount) > 0 && (
             <View style={styles.totalRow}>
               <Text style={styles.totalLabel}>{data.taxName}</Text>
-              <Text style={styles.totalValue}>${Number(data.taxAmount).toFixed(2)}</Text>
+              <Text style={styles.totalValue}>{formatUSD(data.taxAmount)}</Text>
             </View>
           )}
           <View style={styles.grandTotalRow}>
             <Text style={styles.grandTotalLabel}>Total</Text>
-            <Text style={styles.grandTotalValue}>${Number(data.total).toFixed(2)}</Text>
+            <Text style={styles.grandTotalValue}>{formatUSD(data.total)}</Text>
           </View>
           {Number(data.paidAmount) > 0 && (
             <>
               <View style={[styles.totalRow, { marginTop: 4 }]}>
                 <Text style={styles.totalLabel}>Amount Paid</Text>
-                <Text style={styles.totalValue}>${Number(data.paidAmount).toFixed(2)}</Text>
+                <Text style={styles.totalValue}>{formatUSD(data.paidAmount)}</Text>
               </View>
               <View style={styles.totalRow}>
                 <Text style={[styles.totalLabel, { color: "#A63D3D" }]}>Balance Due</Text>
                 <Text style={[styles.totalValue, { color: "#A63D3D" }]}>
-                  ${(Number(data.total) - Number(data.paidAmount)).toFixed(2)}
+                  {formatUSD(Number(data.total) - Number(data.paidAmount))}
                 </Text>
               </View>
             </>
           )}
         </View>
+
+        {/* Summary of Key Activities */}
+        {data.summary && (
+          <View style={styles.summarySection}>
+            <Text style={styles.sectionTitle}>Summary of Key Activities</Text>
+            {data.summary
+              .split("\n")
+              .filter((line) => line.trim().length > 0)
+              .map((line, i) => {
+                const idx = line.indexOf(": ");
+                const hasTitle = idx > 0;
+                const head = hasTitle ? line.slice(0, idx + 1) : line;
+                const body = hasTitle ? line.slice(idx + 1) : "";
+                return (
+                  <View key={i} style={styles.summaryBullet}>
+                    <Text>
+                      <Text style={styles.summaryBulletTitle}>{head}</Text>
+                      {hasTitle && (
+                        <Text style={styles.summaryBulletBody}>{body}</Text>
+                      )}
+                    </Text>
+                  </View>
+                );
+              })}
+          </View>
+        )}
 
         {/* Notes */}
         {data.notes && (

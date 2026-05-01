@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 import { notFound } from "next/navigation";
 import { db } from "@/db";
@@ -29,6 +30,7 @@ export default async function InvoiceDetailPage({
         total: invoices.total,
         paidAmount: invoices.paidAmount,
         notes: invoices.notes,
+        summary: invoices.summary,
         createdAt: invoices.createdAt,
         updatedAt: invoices.updatedAt,
         clientName: clients.name,

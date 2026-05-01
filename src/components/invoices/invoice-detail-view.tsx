@@ -13,6 +13,7 @@ import {
   type InvoiceLineItem,
 } from "@/app/actions/invoices";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { InvoiceSummaryCard } from "@/components/invoices/invoice-summary-card";
 
 function StatusBadge({ status }: { status: string | null }) {
   const map: Record<string, { bg: string; color: string }> = {
@@ -526,6 +527,8 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
           )}
         </div>
       </div>
+
+      <InvoiceSummaryCard invoiceId={invoice.id} initialSummary={invoice.summary} />
 
       {invoice.notes && (
         <div

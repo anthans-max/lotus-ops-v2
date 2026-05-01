@@ -23,6 +23,7 @@ export default async function InvoicesPage() {
         total: invoices.total,
         paidAmount: invoices.paidAmount,
         notes: invoices.notes,
+        summary: invoices.summary,
         createdAt: invoices.createdAt,
         updatedAt: invoices.updatedAt,
         clientName: clients.name,
