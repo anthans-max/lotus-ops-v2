@@ -2,7 +2,7 @@
 
 import { db } from '@/db'
 import { invoices, invoiceLineItems, timeEntries, projects } from '@/db/schema'
-import { eq, sql, and, gte, lte } from 'drizzle-orm'
+import { eq, sql, and, gte, lte, inArray, notInArray } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 import { InferSelectModel } from 'drizzle-orm'
 import { generateInvoiceNumber } from '@/lib/invoice-number'
@@ -100,28 +100,82 @@ export async function createInvoice(input: {
 export async function updateInvoice(
   id: string,
   input: {
-    clientId?: string
+    clientId: string
     projectId?: string
-    issueDate?: string
-    dueDate?: string
+    issueDate: string
+    dueDate: string
     notes?: string
-    status?: string
     taxRate?: string
+    lineItems: { description: string; quantity: string; rate: string; timeEntryId?: string }[]
   }
 ): Promise<ActionResult<{ id: string }>> {
   try {
-    const [row] = await db
-      .update(invoices)
-      .set({ ...input, updatedAt: new Date() })
+    // Draft-only guard — never trust the client; re-read status from the DB.
+    const [existing] = await db
+      .select({ status: invoices.status })
+      .from(invoices)
       .where(eq(invoices.id, id))
-      .returning({ id: invoices.id })
 
-    if (input.taxRate !== undefined) {
-      await recalcTotals(id, input.taxRate)
+    if (!existing) return { success: false, error: 'Invoice not found.' }
+    if (existing.status !== 'draft') {
+      return { success: false, error: 'Only draft invoices can be edited.' }
     }
 
+    await db
+      .update(invoices)
+      .set({
+        clientId: input.clientId,
+        projectId: input.projectId ?? null,
+        issueDate: input.issueDate,
+        dueDate: input.dueDate,
+        notes: input.notes ?? null,
+        updatedAt: new Date(),
+      })
+      .where(eq(invoices.id, id))
+
+    // Replace line items wholesale; recompute amounts server-side.
+    await db.delete(invoiceLineItems).where(eq(invoiceLineItems.invoiceId, id))
+
+    if (input.lineItems.length > 0) {
+      await db.insert(invoiceLineItems).values(
+        input.lineItems.map((item) => ({
+          invoiceId: id,
+          description: item.description,
+          quantity: item.quantity || '1',
+          rate: item.rate,
+          amount: (Number(item.quantity || 1) * Number(item.rate)).toFixed(2),
+          timeEntryId: item.timeEntryId ?? null,
+        }))
+      )
+    }
+
+    // Re-sync time-entry links: release entries no longer referenced, mark current ones.
+    const newIds = input.lineItems
+      .filter((i) => i.timeEntryId)
+      .map((i) => i.timeEntryId!)
+
+    await db
+      .update(timeEntries)
+      .set({ status: 'approved', invoiceId: null, updatedAt: new Date() })
+      .where(
+        newIds.length > 0
+          ? and(eq(timeEntries.invoiceId, id), notInArray(timeEntries.id, newIds))
+          : eq(timeEntries.invoiceId, id)
+      )
+
+    if (newIds.length > 0) {
+      await db
+        .update(timeEntries)
+        .set({ status: 'invoiced', invoiceId: id, updatedAt: new Date() })
+        .where(inArray(timeEntries.id, newIds))
+    }
+
+    await recalcTotals(id, input.taxRate)
+
     revalidatePath('/invoices')
-    return { success: true, data: { id: row.id } }
+    revalidatePath(`/invoices/${id}`)
+    revalidatePath('/time-tracking')
+    return { success: true, data: { id } }
   } catch (e) {
     return { success: false, error: (e as Error).message }
   }
