@@ -14,6 +14,7 @@ import {
 } from "@/app/actions/invoices";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { InvoiceSummaryCard } from "@/components/invoices/invoice-summary-card";
+import { InvoiceForm, type ClientOption, type ProjectOption } from "@/components/invoices/invoice-form";
 
 function StatusBadge({ status }: { status: string | null }) {
   const map: Record<string, { bg: string; color: string }> = {
@@ -53,10 +54,21 @@ export type InvoiceDetailData = Invoice & {
   taxName: string;
 };
 
-export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
+export function InvoiceDetailView({
+  invoice,
+  clients,
+  projects,
+  taxRate,
+}: {
+  invoice: InvoiceDetailData;
+  clients: ClientOption[];
+  projects: ProjectOption[];
+  taxRate: string;
+}) {
   const [paymentAmount, setPaymentAmount] = useState("");
   const [showPayment, setShowPayment] = useState(false);
   const [voidOpen, setVoidOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const [emailStatus, setEmailStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
@@ -193,6 +205,26 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
         </div>
 
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {invoice.status === "draft" && (
+            <button
+              onClick={() => setEditOpen(true)}
+              style={{
+                background: "var(--green)",
+                color: "#FFFFFF",
+                border: "none",
+                borderRadius: 100,
+                padding: "10px 16px",
+                minHeight: 44,
+                fontSize: "0.68rem",
+                fontFamily: "var(--font-jost)",
+                fontWeight: 500,
+                letterSpacing: "0.06em",
+                cursor: "pointer",
+              }}
+            >
+              Edit
+            </button>
+          )}
           <button
             onClick={handleViewPdf}
             style={{
@@ -544,6 +576,31 @@ export function InvoiceDetailView({ invoice }: { invoice: InvoiceDetailData }) {
             {invoice.notes}
           </p>
         </div>
+      )}
+
+      {invoice.status === "draft" && (
+        <InvoiceForm
+          open={editOpen}
+          onClose={() => setEditOpen(false)}
+          clients={clients}
+          projects={projects}
+          invoice={{
+            id: invoice.id,
+            clientId: invoice.clientId ?? "",
+            projectId: invoice.projectId,
+            issueDate: invoice.issueDate,
+            dueDate: invoice.dueDate,
+            notes: invoice.notes,
+            taxRate,
+            lineItems: invoice.lineItems.map((li) => ({
+              id: li.id,
+              description: li.description,
+              quantity: li.quantity,
+              rate: li.rate,
+              timeEntryId: li.timeEntryId,
+            })),
+          }}
+        />
       )}
 
       <ConfirmDialog

@@ -2,7 +2,7 @@
 
 import { useState, useTransition, useEffect } from "react";
 import { Dialog } from "@/components/ui/dialog";
-import { createInvoice, type Invoice } from "@/app/actions/invoices";
+import { createInvoice, updateInvoice } from "@/app/actions/invoices";
 import { getApprovedTimeEntriesForProject, type TimeEntry } from "@/app/actions/time-entries";
 
 export type ClientOption = { id: string; name: string; paymentTerms: number | null };
@@ -16,19 +16,39 @@ type LineItemDraft = {
   timeEntryId?: string;
 };
 
+export type EditInvoice = {
+  id: string;
+  clientId: string;
+  projectId: string | null;
+  issueDate: string;
+  dueDate: string;
+  notes: string | null;
+  taxRate: string;
+  lineItems: {
+    id: string;
+    description: string;
+    quantity: string | null;
+    rate: string;
+    timeEntryId: string | null;
+  }[];
+};
+
 export function InvoiceForm({
   open,
   onClose,
   clients,
   projects,
   defaultTaxRate,
+  invoice,
 }: {
   open: boolean;
   onClose: () => void;
   clients: ClientOption[];
   projects: ProjectOption[];
   defaultTaxRate?: string;
+  invoice?: EditInvoice;
 }) {
+  const isEdit = !!invoice;
   const [clientId, setClientId] = useState("");
   const [projectId, setProjectId] = useState("");
   const [issueDate, setIssueDate] = useState(today());
@@ -40,35 +60,51 @@ export function InvoiceForm({
   const [isPending, startTransition] = useTransition();
   const [isImporting, startImportTransition] = useTransition();
 
-  const selectedClient = clients.find((c) => c.id === clientId);
   const clientProjects = projects.filter((p) => p.clientId === clientId);
 
   useEffect(() => {
-    if (open) {
-      setClientId(clients[0]?.id ?? "");
-      setProjectId("");
+    if (!open) return;
+    if (invoice) {
+      // Edit mode — pre-fill from the existing invoice. No auto-derive runs here,
+      // so the stored project / due date are preserved exactly.
+      setClientId(invoice.clientId);
+      setProjectId(invoice.projectId ?? "");
+      setIssueDate(invoice.issueDate);
+      setDueDate(invoice.dueDate);
+      setNotes(invoice.notes ?? "");
+      setTaxRate(invoice.taxRate);
+      setLineItems(
+        invoice.lineItems.length > 0
+          ? invoice.lineItems.map((li) => ({
+              _key: li.id,
+              description: li.description,
+              quantity: li.quantity ?? "1",
+              rate: li.rate,
+              timeEntryId: li.timeEntryId ?? undefined,
+            }))
+          : [emptyItem()]
+      );
+    } else {
+      const firstClient = clients[0];
+      setClientId(firstClient?.id ?? "");
+      setProjectId(projects.find((p) => p.clientId === firstClient?.id)?.id ?? "");
       setIssueDate(today());
-      setDueDate("");
+      setDueDate(dueDateFromTerms(firstClient?.paymentTerms ?? null));
       setNotes("");
       setTaxRate(defaultTaxRate ?? "0");
       setLineItems([emptyItem()]);
-      setError(null);
     }
-  }, [open, clients, defaultTaxRate]);
+    setError(null);
+  }, [open, clients, projects, defaultTaxRate, invoice]);
 
-  // Auto-set due date from client payment terms
-  useEffect(() => {
-    if (selectedClient?.paymentTerms) {
-      const d = new Date();
-      d.setDate(d.getDate() + selectedClient.paymentTerms);
-      setDueDate(d.toISOString().slice(0, 10));
-    }
-  }, [clientId, selectedClient]);
-
-  // Reset project when client changes
-  useEffect(() => {
-    setProjectId(clientProjects[0]?.id ?? "");
-  }, [clientId]);
+  // Client changes are user-initiated only (never fired during hydration above):
+  // derive the matching project + due date, mirroring create behavior in both modes.
+  const handleClientChange = (newClientId: string) => {
+    setClientId(newClientId);
+    const client = clients.find((c) => c.id === newClientId);
+    setProjectId(projects.find((p) => p.clientId === newClientId)?.id ?? "");
+    setDueDate(dueDateFromTerms(client?.paymentTerms ?? null));
+  };
 
   const handleImportTimeEntries = () => {
     if (!projectId) return;
@@ -124,17 +160,31 @@ export function InvoiceForm({
     setError(null);
     startTransition(async () => {
       const validItems = lineItems.filter((i) => i.description && i.rate);
-      const timeEntryIds = lineItems.filter((i) => i.timeEntryId).map((i) => i.timeEntryId!);
-      const result = await createInvoice({
-        clientId,
-        projectId: projectId || undefined,
-        issueDate,
-        dueDate,
-        notes: notes || undefined,
-        taxRate,
-        lineItems: validItems,
-        timeEntryIds,
-      });
+      const result = invoice
+        ? await updateInvoice(invoice.id, {
+            clientId,
+            projectId: projectId || undefined,
+            issueDate,
+            dueDate,
+            notes: notes || undefined,
+            taxRate,
+            lineItems: validItems.map((i) => ({
+              description: i.description,
+              quantity: i.quantity,
+              rate: i.rate,
+              timeEntryId: i.timeEntryId,
+            })),
+          })
+        : await createInvoice({
+            clientId,
+            projectId: projectId || undefined,
+            issueDate,
+            dueDate,
+            notes: notes || undefined,
+            taxRate,
+            lineItems: validItems,
+            timeEntryIds: lineItems.filter((i) => i.timeEntryId).map((i) => i.timeEntryId!),
+          });
       if (result.success) {
         onClose();
       } else {
@@ -167,14 +217,14 @@ export function InvoiceForm({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} title="New Invoice" className="dialog-fullscreen">
+    <Dialog open={open} onClose={onClose} title={isEdit ? "Edit Invoice" : "New Invoice"} className="dialog-fullscreen">
       <form onSubmit={handleSubmit}>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {/* Client + Project */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
             <div>
               <label style={labelStyle}>Client *</label>
-              <select value={clientId} onChange={(e) => setClientId(e.target.value)} style={inputStyle}>
+              <select value={clientId} onChange={(e) => handleClientChange(e.target.value)} style={inputStyle}>
                 <option value="">Select client…</option>
                 {clients.map((c) => (
                   <option key={c.id} value={c.id}>{c.name}</option>
@@ -374,7 +424,7 @@ export function InvoiceForm({
               disabled={isPending}
               style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.72rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.7 : 1 }}
             >
-              {isPending ? "Creating…" : "Create Invoice"}
+              {isPending ? (isEdit ? "Saving…" : "Creating…") : isEdit ? "Save Changes" : "Create Invoice"}
             </button>
           </div>
         </div>
@@ -385,6 +435,13 @@ export function InvoiceForm({
 
 function today() {
   return new Date().toISOString().slice(0, 10);
+}
+
+function dueDateFromTerms(paymentTerms: number | null) {
+  if (!paymentTerms) return "";
+  const d = new Date();
+  d.setDate(d.getDate() + paymentTerms);
+  return d.toISOString().slice(0, 10);
 }
 
 function emptyItem(): LineItemDraft {
