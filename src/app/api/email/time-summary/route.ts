@@ -6,6 +6,7 @@ import { db } from "@/db";
 import { timeEntries, projects, clients } from "@/db/schema";
 import { and, asc, eq, gte, lte } from "drizzle-orm";
 import { Resend } from "resend";
+import { createClient } from "@/lib/supabase/server";
 
 type Body = {
   weekStart: string;
@@ -16,6 +17,14 @@ type Body = {
 };
 
 export async function POST(request: Request) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { weekStart, weekEnd, recipientEmail, recipientName, highlights } =
     (await request.json()) as Body;
 

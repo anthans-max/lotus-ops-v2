@@ -5,6 +5,7 @@ export const maxDuration = 30;
 import { db } from "@/db";
 import { timeEntries, projects, clients } from "@/db/schema";
 import { and, asc, eq, gte, lte } from "drizzle-orm";
+import { createClient } from "@/lib/supabase/server";
 
 type Body = {
   from: string;
@@ -20,6 +21,14 @@ interface AnthropicResponse {
 }
 
 export async function POST(request: Request) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { from, to } = (await request.json()) as Body;
 
   if (!from || !to) {
