@@ -37,7 +37,7 @@ export default function Error({
       <p
         style={{
           fontFamily: "var(--font-jost)",
-          fontSize: 13,
+          fontSize: 16,
           color: "var(--text-dim)",
         }}
       >
@@ -51,7 +51,7 @@ export default function Error({
           border: "none",
           borderRadius: 100,
           padding: "8px 20px",
-          fontSize: "0.72rem",
+          fontSize: "0.875rem",
           fontFamily: "var(--font-jost)",
           fontWeight: 500,
           letterSpacing: "0.08em",

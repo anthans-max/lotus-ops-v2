@@ -69,7 +69,7 @@ export function TemplateForm({
   const labelStyle: React.CSSProperties = {
     display: "block",
     fontFamily: "var(--font-syne)",
-    fontSize: "0.6rem",
+    fontSize: "0.75rem",
     fontWeight: 500,
     letterSpacing: "0.1em",
     textTransform: "uppercase",
@@ -84,7 +84,7 @@ export function TemplateForm({
     border: "1px solid var(--border-dark)",
     background: "var(--bg)",
     fontFamily: "var(--font-jost)",
-    fontSize: 13,
+    fontSize: 16,
     color: "var(--text)",
     outline: "none",
   };
@@ -117,7 +117,7 @@ export function TemplateForm({
               value={bodyHtml}
               onChange={(e) => setBodyHtml(e.target.value)}
               rows={14}
-              style={{ ...inputStyle, resize: "vertical", fontFamily: "monospace", fontSize: 12 }}
+              style={{ ...inputStyle, resize: "vertical", fontFamily: "monospace", fontSize: 16 }}
               placeholder="<h2>Agreement</h2><p>This agreement is between {{client_name}}...</p>"
             />
           </div>
@@ -128,7 +128,7 @@ export function TemplateForm({
               <button
                 type="button"
                 onClick={addVariable}
-                style={{ background: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "4px 10px", fontSize: "0.65rem", fontFamily: "var(--font-jost)", cursor: "pointer" }}
+                style={{ background: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "4px 10px", fontSize: "0.875rem", fontFamily: "var(--font-jost)", cursor: "pointer" }}
               >
                 + Add
               </button>
@@ -158,14 +158,14 @@ export function TemplateForm({
           </div>
 
           {error && (
-            <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--red)" }}>{error}</p>
+            <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--red)" }}>{error}</p>
           )}
 
           <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", paddingTop: 4 }}>
-            <button type="button" onClick={onClose} disabled={isPending} style={{ background: "transparent", color: "var(--text-dim)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.72rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.5 : 1 }}>
+            <button type="button" onClick={onClose} disabled={isPending} style={{ background: "transparent", color: "var(--text-dim)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.5 : 1 }}>
               Cancel
             </button>
-            <button type="submit" disabled={isPending} style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.72rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.7 : 1 }}>
+            <button type="submit" disabled={isPending} style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.7 : 1 }}>
               {isPending ? "Saving…" : template ? "Save Changes" : "Create Template"}
             </button>
           </div>

@@ -72,7 +72,7 @@ export function ConfirmDialog({
         <p
           style={{
             fontFamily: "var(--font-jost)",
-            fontSize: 13,
+            fontSize: 16,
             color: "var(--text-dim)",
             marginBottom: 24,
             lineHeight: 1.5,
@@ -92,7 +92,7 @@ export function ConfirmDialog({
               border: "1px solid var(--border-dark)",
               borderRadius: 100,
               padding: "7px 18px",
-              fontSize: "0.72rem",
+              fontSize: "0.875rem",
               fontFamily: "var(--font-jost)",
               fontWeight: 500,
               letterSpacing: "0.08em",
@@ -112,7 +112,7 @@ export function ConfirmDialog({
               border: "none",
               borderRadius: 100,
               padding: "7px 18px",
-              fontSize: "0.72rem",
+              fontSize: "0.875rem",
               fontFamily: "var(--font-jost)",
               fontWeight: 500,
               letterSpacing: "0.08em",

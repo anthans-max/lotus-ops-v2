@@ -196,7 +196,7 @@ export function InvoiceForm({
   const labelStyle: React.CSSProperties = {
     display: "block",
     fontFamily: "var(--font-syne)",
-    fontSize: "0.6rem",
+    fontSize: "0.75rem",
     fontWeight: 500,
     letterSpacing: "0.1em",
     textTransform: "uppercase",
@@ -211,7 +211,7 @@ export function InvoiceForm({
     border: "1px solid var(--border-dark)",
     background: "var(--bg)",
     fontFamily: "var(--font-jost)",
-    fontSize: 13,
+    fontSize: 16,
     color: "var(--text)",
     outline: "none",
   };
@@ -282,7 +282,7 @@ export function InvoiceForm({
                     border: "1px solid var(--accent)",
                     borderRadius: 100,
                     padding: "5px 12px",
-                    fontSize: "0.65rem",
+                    fontSize: "0.875rem",
                     fontFamily: "var(--font-jost)",
                     fontWeight: 500,
                     letterSpacing: "0.06em",
@@ -333,7 +333,7 @@ export function InvoiceForm({
                       placeholder="0.00"
                       style={inputStyle}
                     />
-                    <span style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)", padding: "0 4px" }}>
+                    <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)", padding: "0 4px" }}>
                       ${amount.toFixed(2)}
                     </span>
                     <button
@@ -365,7 +365,7 @@ export function InvoiceForm({
                   border: "1px dashed var(--border-dark)",
                   borderRadius: 6,
                   padding: "8px",
-                  fontSize: "0.72rem",
+                  fontSize: "0.875rem",
                   fontFamily: "var(--font-jost)",
                   cursor: "pointer",
                   width: "100%",
@@ -378,17 +378,17 @@ export function InvoiceForm({
 
           {/* Totals */}
           <div style={{ borderTop: "1px solid var(--border)", paddingTop: 12, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", width: 220, fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text-muted)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", width: 220, fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)" }}>
               <span>Subtotal</span>
               <span>${subtotal.toFixed(2)}</span>
             </div>
             {Number(taxRate) > 0 && (
-              <div style={{ display: "flex", justifyContent: "space-between", width: 220, fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text-muted)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", width: 220, fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)" }}>
                 <span>Tax ({taxRate}%)</span>
                 <span>${taxAmount.toFixed(2)}</span>
               </div>
             )}
-            <div style={{ display: "flex", justifyContent: "space-between", width: 220, fontFamily: "var(--font-jost)", fontSize: 14, fontWeight: 600, color: "var(--text)", borderTop: "1px solid var(--border)", paddingTop: 4 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", width: 220, fontFamily: "var(--font-jost)", fontSize: 18, fontWeight: 600, color: "var(--text)", borderTop: "1px solid var(--border)", paddingTop: 4 }}>
               <span>Total</span>
               <span>${total.toFixed(2)}</span>
             </div>
@@ -407,7 +407,7 @@ export function InvoiceForm({
           </div>
 
           {error && (
-            <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--red)" }}>{error}</p>
+            <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--red)" }}>{error}</p>
           )}
 
           <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", paddingTop: 4 }}>
@@ -415,14 +415,14 @@ export function InvoiceForm({
               type="button"
               onClick={onClose}
               disabled={isPending}
-              style={{ background: "transparent", color: "var(--text-dim)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.72rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.5 : 1 }}
+              style={{ background: "transparent", color: "var(--text-dim)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.5 : 1 }}
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isPending}
-              style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.72rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.7 : 1 }}
+              style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.7 : 1 }}
             >
               {isPending ? (isEdit ? "Saving…" : "Creating…") : isEdit ? "Save Changes" : "Create Invoice"}
             </button>

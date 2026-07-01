@@ -11,7 +11,7 @@ function StatusBadge({ status }: { status: string | null }) {
         color: isActive ? "var(--green)" : "var(--text-muted)",
         borderRadius: 100,
         padding: "3px 10px",
-        fontSize: "0.6rem",
+        fontSize: "0.75rem",
         fontFamily: "var(--font-syne)",
         fontWeight: 500,
         letterSpacing: "0.1em",
@@ -59,7 +59,7 @@ export function ClientsCards({
             <h3
               style={{
                 fontFamily: "var(--font-cormorant)",
-                fontSize: "1.05rem",
+                fontSize: "1.125rem",
                 fontWeight: 600,
                 color: "var(--text)",
               }}
@@ -73,7 +73,7 @@ export function ClientsCards({
             <p
               style={{
                 fontFamily: "var(--font-jost)",
-                fontSize: 13,
+                fontSize: 16,
                 color: "var(--text-dim)",
                 marginBottom: 2,
               }}
@@ -85,7 +85,7 @@ export function ClientsCards({
             <p
               style={{
                 fontFamily: "var(--font-jost)",
-                fontSize: 13,
+                fontSize: 16,
                 color: "var(--text-dim)",
                 marginBottom: 4,
               }}
@@ -105,7 +105,7 @@ export function ClientsCards({
             <span
               style={{
                 fontFamily: "var(--font-jost)",
-                fontSize: 12,
+                fontSize: 16,
                 color: "var(--text-muted)",
               }}
             >
@@ -114,7 +114,7 @@ export function ClientsCards({
             <span
               style={{
                 fontFamily: "var(--font-jost)",
-                fontSize: 12,
+                fontSize: 16,
                 color: "var(--text-muted)",
               }}
             >
@@ -123,7 +123,7 @@ export function ClientsCards({
             <span
               style={{
                 fontFamily: "var(--font-jost)",
-                fontSize: 12,
+                fontSize: 16,
                 color: "var(--text-muted)",
               }}
             >
@@ -141,7 +141,7 @@ export function ClientsCards({
                 borderRadius: 100,
                 padding: "8px 16px",
                 minHeight: 38,
-                fontSize: "0.68rem",
+                fontSize: "0.875rem",
                 fontFamily: "var(--font-jost)",
                 fontWeight: 500,
                 letterSpacing: "0.06em",
@@ -160,7 +160,7 @@ export function ClientsCards({
                 borderRadius: 100,
                 padding: "8px 16px",
                 minHeight: 38,
-                fontSize: "0.68rem",
+                fontSize: "0.875rem",
                 fontFamily: "var(--font-jost)",
                 fontWeight: 500,
                 letterSpacing: "0.06em",
@@ -179,7 +179,7 @@ export function ClientsCards({
                 borderRadius: 100,
                 padding: "8px 16px",
                 minHeight: 38,
-                fontSize: "0.68rem",
+                fontSize: "0.875rem",
                 fontFamily: "var(--font-jost)",
                 fontWeight: 500,
                 letterSpacing: "0.06em",

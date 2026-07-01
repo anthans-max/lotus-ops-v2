@@ -34,7 +34,7 @@ export function TemplatesView({ templates }: { templates: ContractTemplate[] }) 
     <div>
       <Link
         href="/contracts"
-        style={{ fontFamily: "var(--font-jost)", fontSize: 12, color: "var(--text-muted)", textDecoration: "none", display: "inline-block", paddingTop: 20, marginBottom: 4 }}
+        style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)", textDecoration: "none", display: "inline-block", paddingTop: 20, marginBottom: 4 }}
       >
         ← Contracts
       </Link>
@@ -43,7 +43,7 @@ export function TemplatesView({ templates }: { templates: ContractTemplate[] }) 
         actions={
           <button
             onClick={() => setAddOpen(true)}
-            style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.72rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: "pointer" }}
+            style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: "pointer" }}
           >
             + New Template
           </button>
@@ -51,7 +51,7 @@ export function TemplatesView({ templates }: { templates: ContractTemplate[] }) 
       />
 
       {deleteError && (
-        <div style={{ background: "var(--red-pale)", border: "1px solid var(--red)", borderRadius: 8, padding: "12px 16px", marginBottom: 16, fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--red)" }}>
+        <div style={{ background: "var(--red-pale)", border: "1px solid var(--red)", borderRadius: 8, padding: "12px 16px", marginBottom: 16, fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--red)" }}>
           {deleteError}
         </div>
       )}
@@ -59,8 +59,8 @@ export function TemplatesView({ templates }: { templates: ContractTemplate[] }) 
       {templates.length === 0 && (
         <div style={{ padding: "60px 0", textAlign: "center" }}>
           <p style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.3rem", fontWeight: 600, color: "var(--text)", marginBottom: 8 }}>No templates yet</p>
-          <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text-muted)", marginBottom: 24 }}>Create a reusable contract template.</p>
-          <button onClick={() => setAddOpen(true)} style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 24px", minHeight: 44, fontSize: "0.72rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: "pointer" }}>New Template</button>
+          <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)", marginBottom: 24 }}>Create a reusable contract template.</p>
+          <button onClick={() => setAddOpen(true)} style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 24px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: "pointer" }}>New Template</button>
         </div>
       )}
 

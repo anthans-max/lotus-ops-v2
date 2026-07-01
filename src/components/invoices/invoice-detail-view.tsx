@@ -33,7 +33,7 @@ function StatusBadge({ status }: { status: string | null }) {
         color: style.color,
         borderRadius: 100,
         padding: "4px 12px",
-        fontSize: "0.65rem",
+        fontSize: "0.75rem",
         fontFamily: "var(--font-syne)",
         fontWeight: 500,
         letterSpacing: "0.1em",
@@ -133,7 +133,7 @@ export function InvoiceDetailView({
 
   const labelStyle: React.CSSProperties = {
     fontFamily: "var(--font-syne)",
-    fontSize: "0.58rem",
+    fontSize: "0.75rem",
     fontWeight: 500,
     letterSpacing: "0.12em",
     textTransform: "uppercase",
@@ -146,7 +146,7 @@ export function InvoiceDetailView({
     padding: "10px 14px",
     textAlign: "left",
     fontFamily: "var(--font-syne)",
-    fontSize: "0.58rem",
+    fontSize: "0.875rem",
     fontWeight: 500,
     letterSpacing: "0.1em",
     textTransform: "uppercase",
@@ -156,7 +156,7 @@ export function InvoiceDetailView({
   const tdStyle: React.CSSProperties = {
     padding: "10px 14px",
     fontFamily: "var(--font-jost)",
-    fontSize: 13,
+    fontSize: 16,
     color: "var(--text)",
     borderTop: "1px solid var(--border)",
   };
@@ -168,7 +168,7 @@ export function InvoiceDetailView({
         href="/invoices"
         style={{
           fontFamily: "var(--font-jost)",
-          fontSize: 12,
+          fontSize: 16,
           color: "var(--text-muted)",
           textDecoration: "none",
           display: "inline-block",
@@ -234,7 +234,7 @@ export function InvoiceDetailView({
               borderRadius: 100,
               padding: "10px 16px",
               minHeight: 44,
-              fontSize: "0.68rem",
+              fontSize: "0.875rem",
               fontFamily: "var(--font-jost)",
               fontWeight: 500,
               letterSpacing: "0.06em",
@@ -253,7 +253,7 @@ export function InvoiceDetailView({
               borderRadius: 100,
               padding: "10px 16px",
               minHeight: 44,
-              fontSize: "0.68rem",
+              fontSize: "0.875rem",
               fontFamily: "var(--font-jost)",
               fontWeight: 500,
               letterSpacing: "0.06em",
@@ -358,7 +358,7 @@ export function InvoiceDetailView({
             padding: "12px 16px",
             marginBottom: 16,
             fontFamily: "var(--font-jost)",
-            fontSize: 13,
+            fontSize: 16,
             color: "var(--red)",
           }}
         >
@@ -381,7 +381,7 @@ export function InvoiceDetailView({
             flexWrap: "wrap",
           }}
         >
-          <span style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)" }}>
+          <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>
             Record Payment:
           </span>
           <input
@@ -396,7 +396,7 @@ export function InvoiceDetailView({
               borderRadius: 6,
               border: "1px solid var(--border-dark)",
               fontFamily: "var(--font-jost)",
-              fontSize: 13,
+              fontSize: 16,
               width: 140,
             }}
           />
@@ -409,7 +409,7 @@ export function InvoiceDetailView({
               border: "none",
               borderRadius: 100,
               padding: "8px 16px",
-              fontSize: "0.68rem",
+              fontSize: "0.875rem",
               fontFamily: "var(--font-jost)",
               fontWeight: 500,
               cursor: "pointer",
@@ -424,7 +424,7 @@ export function InvoiceDetailView({
               color: "var(--text-muted)",
               border: "none",
               fontFamily: "var(--font-jost)",
-              fontSize: 12,
+              fontSize: 14,
               cursor: "pointer",
             }}
           >
@@ -448,11 +448,11 @@ export function InvoiceDetailView({
       >
         <div>
           <span style={labelStyle}>Client</span>
-          <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)" }}>
+          <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>
             {invoice.clientName ?? "—"}
           </p>
           {invoice.clientEmail && (
-            <p style={{ fontFamily: "var(--font-jost)", fontSize: 12, color: "var(--text-muted)" }}>
+            <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)" }}>
               {invoice.clientEmail}
             </p>
           )}
@@ -460,20 +460,20 @@ export function InvoiceDetailView({
         {invoice.projectName && (
           <div>
             <span style={labelStyle}>Project</span>
-            <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)" }}>
+            <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>
               {invoice.projectName}
             </p>
           </div>
         )}
         <div>
           <span style={labelStyle}>Issue Date</span>
-          <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)" }}>
+          <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>
             {invoice.issueDate}
           </p>
         </div>
         <div>
           <span style={labelStyle}>Due Date</span>
-          <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)" }}>
+          <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>
             {invoice.dueDate}
           </p>
         </div>
@@ -486,7 +486,7 @@ export function InvoiceDetailView({
         {Number(invoice.paidAmount) > 0 && (
           <div>
             <span style={labelStyle}>Paid</span>
-            <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--green)", fontWeight: 500 }}>
+            <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--green)", fontWeight: 500 }}>
               ${Number(invoice.paidAmount).toFixed(2)}
             </p>
           </div>
@@ -498,7 +498,7 @@ export function InvoiceDetailView({
         <h2
           style={{
             fontFamily: "var(--font-cormorant)",
-            fontSize: "1.1rem",
+            fontSize: "1.125rem",
             fontWeight: 600,
             color: "var(--text)",
             marginBottom: 12,
@@ -532,28 +532,28 @@ export function InvoiceDetailView({
         {/* Totals */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, marginTop: 12 }}>
           <div style={{ display: "flex", justifyContent: "space-between", width: 220 }}>
-            <span style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text-muted)" }}>Subtotal</span>
-            <span style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)" }}>${Number(invoice.subtotal ?? 0).toFixed(2)}</span>
+            <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)" }}>Subtotal</span>
+            <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>${Number(invoice.subtotal ?? 0).toFixed(2)}</span>
           </div>
           {Number(invoice.taxAmount) > 0 && (
             <div style={{ display: "flex", justifyContent: "space-between", width: 220 }}>
-              <span style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text-muted)" }}>{invoice.taxName}</span>
-              <span style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)" }}>${Number(invoice.taxAmount).toFixed(2)}</span>
+              <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)" }}>{invoice.taxName}</span>
+              <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>${Number(invoice.taxAmount).toFixed(2)}</span>
             </div>
           )}
           <div style={{ display: "flex", justifyContent: "space-between", width: 220, borderTop: "1px solid var(--border)", paddingTop: 6 }}>
-            <span style={{ fontFamily: "var(--font-jost)", fontSize: 14, fontWeight: 600, color: "var(--text)" }}>Total</span>
-            <span style={{ fontFamily: "var(--font-jost)", fontSize: 14, fontWeight: 600, color: "var(--text)" }}>${Number(invoice.total ?? 0).toFixed(2)}</span>
+            <span style={{ fontFamily: "var(--font-jost)", fontSize: 18, fontWeight: 600, color: "var(--text)" }}>Total</span>
+            <span style={{ fontFamily: "var(--font-jost)", fontSize: 18, fontWeight: 600, color: "var(--text)" }}>${Number(invoice.total ?? 0).toFixed(2)}</span>
           </div>
           {Number(invoice.paidAmount) > 0 && (
             <>
               <div style={{ display: "flex", justifyContent: "space-between", width: 220 }}>
-                <span style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--green)" }}>Paid</span>
-                <span style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--green)" }}>${Number(invoice.paidAmount).toFixed(2)}</span>
+                <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--green)" }}>Paid</span>
+                <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--green)" }}>${Number(invoice.paidAmount).toFixed(2)}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", width: 220 }}>
-                <span style={{ fontFamily: "var(--font-jost)", fontSize: 13, fontWeight: 600, color: "var(--red)" }}>Balance Due</span>
-                <span style={{ fontFamily: "var(--font-jost)", fontSize: 13, fontWeight: 600, color: "var(--red)" }}>${(Number(invoice.total) - Number(invoice.paidAmount)).toFixed(2)}</span>
+                <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, fontWeight: 600, color: "var(--red)" }}>Balance Due</span>
+                <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, fontWeight: 600, color: "var(--red)" }}>${(Number(invoice.total) - Number(invoice.paidAmount)).toFixed(2)}</span>
               </div>
             </>
           )}
@@ -572,7 +572,7 @@ export function InvoiceDetailView({
           }}
         >
           <span style={labelStyle}>Notes</span>
-          <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text-dim)", lineHeight: 1.5 }}>
+          <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-dim)", lineHeight: 1.6 }}>
             {invoice.notes}
           </p>
         </div>
