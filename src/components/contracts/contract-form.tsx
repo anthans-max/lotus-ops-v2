@@ -54,7 +54,7 @@ export function ContractForm({
   const labelStyle: React.CSSProperties = {
     display: "block",
     fontFamily: "var(--font-syne)",
-    fontSize: "0.6rem",
+    fontSize: "0.75rem",
     fontWeight: 500,
     letterSpacing: "0.1em",
     textTransform: "uppercase",
@@ -69,7 +69,7 @@ export function ContractForm({
     border: "1px solid var(--border-dark)",
     background: "var(--bg)",
     fontFamily: "var(--font-jost)",
-    fontSize: 13,
+    fontSize: 16,
     color: "var(--text)",
     outline: "none",
   };
@@ -115,7 +115,7 @@ export function ContractForm({
                 onChange={(e) => setFileName(e.target.files?.[0]?.name ?? "")}
                 style={{ display: "none" }}
               />
-              <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: fileName ? "var(--text)" : "var(--text-muted)" }}>
+              <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: fileName ? "var(--text)" : "var(--text-muted)" }}>
                 {fileName || "Click to upload PDF"}
               </p>
               {!fileName && (
@@ -127,7 +127,7 @@ export function ContractForm({
           </div>
 
           {error && (
-            <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--red)" }}>{error}</p>
+            <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--red)" }}>{error}</p>
           )}
 
           <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", paddingTop: 4 }}>
@@ -135,14 +135,14 @@ export function ContractForm({
               type="button"
               onClick={onClose}
               disabled={isPending}
-              style={{ background: "transparent", color: "var(--text-dim)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.72rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.5 : 1 }}
+              style={{ background: "transparent", color: "var(--text-dim)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.5 : 1 }}
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isPending}
-              style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.72rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.7 : 1 }}
+              style={{ background: "var(--green)", color: "var(--bg)", border: "none", borderRadius: 100, padding: "10px 20px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.08em", cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.7 : 1 }}
             >
               {isPending ? "Creating…" : "Create Contract"}
             </button>

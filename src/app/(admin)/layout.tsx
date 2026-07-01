@@ -55,7 +55,7 @@ export default async function AdminLayout({
           <p
             style={{
               fontFamily: "var(--font-syne)",
-              fontSize: "0.55rem",
+              fontSize: "0.6875rem",
               fontWeight: 400,
               letterSpacing: "0.15em",
               textTransform: "uppercase",

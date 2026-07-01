@@ -80,7 +80,7 @@ function WeeklyGrid({
                 padding: "10px 14px",
                 textAlign: "left",
                 fontFamily: "var(--font-syne)",
-                fontSize: "0.58rem",
+                fontSize: "0.875rem",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -97,7 +97,7 @@ function WeeklyGrid({
                   padding: "10px 8px",
                   textAlign: "center",
                   fontFamily: "var(--font-syne)",
-                  fontSize: "0.58rem",
+                  fontSize: "0.875rem",
                   fontWeight: 500,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
@@ -106,7 +106,7 @@ function WeeklyGrid({
                 }}
               >
                 <div>{dayLabels[i]}</div>
-                <div style={{ fontWeight: 400, fontSize: "0.55rem", marginTop: 2 }}>
+                <div style={{ fontWeight: 400, fontSize: 11, marginTop: 2 }}>
                   {d.getMonth() + 1}/{d.getDate()}
                 </div>
               </th>
@@ -116,7 +116,7 @@ function WeeklyGrid({
                 padding: "10px 8px",
                 textAlign: "center",
                 fontFamily: "var(--font-syne)",
-                fontSize: "0.58rem",
+                fontSize: "0.875rem",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -139,7 +139,7 @@ function WeeklyGrid({
                   style={{
                     padding: "10px 14px",
                     fontFamily: "var(--font-jost)",
-                    fontSize: 13,
+                    fontSize: 16,
                     color: "var(--text)",
                     borderTop: "1px solid var(--border)",
                   }}
@@ -157,7 +157,7 @@ function WeeklyGrid({
                         padding: "10px 8px",
                         textAlign: "center",
                         fontFamily: "var(--font-jost)",
-                        fontSize: 13,
+                        fontSize: 16,
                         color: hrs ? "var(--text)" : "var(--border-dark)",
                         borderTop: "1px solid var(--border)",
                         cursor: "pointer",
@@ -172,7 +172,7 @@ function WeeklyGrid({
                     padding: "10px 8px",
                     textAlign: "center",
                     fontFamily: "var(--font-jost)",
-                    fontSize: 13,
+                    fontSize: 16,
                     fontWeight: 600,
                     color: "var(--text)",
                     borderTop: "1px solid var(--border)",
@@ -191,7 +191,7 @@ function WeeklyGrid({
                   padding: "24px 14px",
                   textAlign: "center",
                   fontFamily: "var(--font-jost)",
-                  fontSize: 13,
+                  fontSize: 16,
                   color: "var(--text-muted)",
                   borderTop: "1px solid var(--border)",
                 }}
@@ -317,7 +317,7 @@ export function TimeTrackingView({
     border: "1px solid var(--border-dark)",
     background: "var(--bg)",
     fontFamily: "var(--font-jost)",
-    fontSize: 13,
+    fontSize: 16,
     color: "var(--text)",
     outline: "none",
   };
@@ -328,7 +328,7 @@ export function TimeTrackingView({
     border: "1px solid var(--border-dark)",
     background: "var(--bg)",
     fontFamily: "var(--font-jost)",
-    fontSize: 13,
+    fontSize: 16,
     color: "var(--text)",
     outline: "none",
   };
@@ -350,7 +350,7 @@ export function TimeTrackingView({
                   borderRadius: 100,
                   padding: "10px 20px",
                   minHeight: 44,
-                  fontSize: "0.72rem",
+                  fontSize: "0.875rem",
                   fontFamily: "var(--font-jost)",
                   fontWeight: 500,
                   letterSpacing: "0.08em",
@@ -374,7 +374,7 @@ export function TimeTrackingView({
                 borderRadius: 100,
                 padding: "10px 20px",
                 minHeight: 44,
-                fontSize: "0.72rem",
+                fontSize: "0.875rem",
                 fontFamily: "var(--font-jost)",
                 fontWeight: 500,
                 letterSpacing: "0.08em",
@@ -397,7 +397,7 @@ export function TimeTrackingView({
             padding: "12px 16px",
             marginBottom: 16,
             fontFamily: "var(--font-jost)",
-            fontSize: 13,
+            fontSize: 16,
             color: "var(--red)",
           }}
         >
@@ -469,7 +469,7 @@ export function TimeTrackingView({
               color: "var(--text-muted)",
               border: "none",
               fontFamily: "var(--font-jost)",
-              fontSize: 12,
+              fontSize: "0.875rem",
               cursor: "pointer",
               padding: "4px 8px",
             }}
@@ -489,7 +489,7 @@ export function TimeTrackingView({
                 border: "1px solid var(--border-dark)",
                 borderRadius: 100,
                 padding: "6px 14px",
-                fontSize: "0.65rem",
+                fontSize: "0.875rem",
                 fontFamily: "var(--font-syne)",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
@@ -525,7 +525,7 @@ export function TimeTrackingView({
               border: "1px solid var(--border-dark)",
               borderRadius: 100,
               padding: "6px 14px",
-              fontSize: "0.65rem",
+              fontSize: "0.875rem",
               fontFamily: "var(--font-jost)",
               cursor: "pointer",
             }}
@@ -535,7 +535,7 @@ export function TimeTrackingView({
           <span
             style={{
               fontFamily: "var(--font-jost)",
-              fontSize: 13,
+              fontSize: 16,
               color: "var(--text)",
             }}
           >
@@ -553,7 +553,7 @@ export function TimeTrackingView({
               border: "1px solid var(--border-dark)",
               borderRadius: 100,
               padding: "6px 14px",
-              fontSize: "0.65rem",
+              fontSize: "0.875rem",
               fontFamily: "var(--font-jost)",
               cursor: "pointer",
             }}
@@ -567,7 +567,7 @@ export function TimeTrackingView({
               color: "var(--text-muted)",
               border: "none",
               fontFamily: "var(--font-jost)",
-              fontSize: 12,
+              fontSize: "0.875rem",
               cursor: "pointer",
             }}
           >
@@ -593,7 +593,7 @@ export function TimeTrackingView({
           <p
             style={{
               fontFamily: "var(--font-jost)",
-              fontSize: 13,
+              fontSize: 16,
               color: "var(--text-muted)",
               marginBottom: 24,
             }}
@@ -612,7 +612,7 @@ export function TimeTrackingView({
                 borderRadius: 100,
                 padding: "10px 24px",
                 minHeight: 44,
-                fontSize: "0.72rem",
+                fontSize: "0.875rem",
                 fontFamily: "var(--font-jost)",
                 fontWeight: 500,
                 letterSpacing: "0.08em",

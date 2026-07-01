@@ -80,7 +80,7 @@ export function TimeEntryForm({
   const labelStyle: React.CSSProperties = {
     display: "block",
     fontFamily: "var(--font-syne)",
-    fontSize: "0.6rem",
+    fontSize: "0.75rem",
     fontWeight: 500,
     letterSpacing: "0.1em",
     textTransform: "uppercase",
@@ -95,7 +95,7 @@ export function TimeEntryForm({
     border: "1px solid var(--border-dark)",
     background: "var(--bg)",
     fontFamily: "var(--font-jost)",
-    fontSize: 13,
+    fontSize: 16,
     color: "var(--text)",
     outline: "none",
   };
@@ -174,7 +174,7 @@ export function TimeEntryForm({
           </div>
 
           {error && (
-            <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--red)" }}>
+            <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--red)" }}>
               {error}
             </p>
           )}
@@ -191,7 +191,7 @@ export function TimeEntryForm({
                 borderRadius: 100,
                 padding: "10px 20px",
                 minHeight: 44,
-                fontSize: "0.72rem",
+                fontSize: "0.875rem",
                 fontFamily: "var(--font-jost)",
                 fontWeight: 500,
                 letterSpacing: "0.08em",
@@ -211,7 +211,7 @@ export function TimeEntryForm({
                 borderRadius: 100,
                 padding: "10px 20px",
                 minHeight: 44,
-                fontSize: "0.72rem",
+                fontSize: "0.875rem",
                 fontFamily: "var(--font-jost)",
                 fontWeight: 500,
                 letterSpacing: "0.08em",

@@ -52,7 +52,7 @@ export function ClientsView({ clients }: { clients: ClientWithCounts[] }) {
               borderRadius: 100,
               padding: "10px 20px",
               minHeight: 44,
-              fontSize: "0.72rem",
+              fontSize: "0.875rem",
               fontFamily: "var(--font-jost)",
               fontWeight: 500,
               letterSpacing: "0.08em",
@@ -73,7 +73,7 @@ export function ClientsView({ clients }: { clients: ClientWithCounts[] }) {
             padding: "12px 16px",
             marginBottom: 16,
             fontFamily: "var(--font-jost)",
-            fontSize: 13,
+            fontSize: 16,
             color: "var(--red)",
           }}
         >
@@ -103,7 +103,7 @@ export function ClientsView({ clients }: { clients: ClientWithCounts[] }) {
           <p
             style={{
               fontFamily: "var(--font-jost)",
-              fontSize: 13,
+              fontSize: 16,
               color: "var(--text-muted)",
               marginBottom: 24,
             }}
@@ -119,7 +119,7 @@ export function ClientsView({ clients }: { clients: ClientWithCounts[] }) {
               borderRadius: 100,
               padding: "10px 24px",
               minHeight: 44,
-              fontSize: "0.72rem",
+              fontSize: "0.875rem",
               fontFamily: "var(--font-jost)",
               fontWeight: 500,
               letterSpacing: "0.08em",

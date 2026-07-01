@@ -27,7 +27,7 @@ export function LoginForm() {
         border: "none",
         borderRadius: 100,
         padding: "10px 20px",
-        fontSize: "0.85rem",
+        fontSize: "0.875rem",
         fontFamily: "var(--font-jost)",
         fontWeight: 500,
         letterSpacing: "0.05em",

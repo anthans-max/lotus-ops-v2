@@ -21,7 +21,7 @@ function StatusBadge({ status }: { status: string | null }) {
         color: style.color,
         borderRadius: 100,
         padding: "4px 12px",
-        fontSize: "0.65rem",
+        fontSize: "0.75rem",
         fontFamily: "var(--font-syne)",
         fontWeight: 500,
         letterSpacing: "0.1em",
@@ -51,7 +51,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
 
   const labelStyle: React.CSSProperties = {
     fontFamily: "var(--font-syne)",
-    fontSize: "0.58rem",
+    fontSize: "0.75rem",
     fontWeight: 500,
     letterSpacing: "0.12em",
     textTransform: "uppercase",
@@ -64,7 +64,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
     <div style={{ paddingTop: 20 }}>
       <Link
         href="/contracts"
-        style={{ fontFamily: "var(--font-jost)", fontSize: 12, color: "var(--text-muted)", textDecoration: "none", display: "inline-block", marginBottom: 16 }}
+        style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)", textDecoration: "none", display: "inline-block", marginBottom: 16 }}
       >
         ← Contracts
       </Link>
@@ -100,7 +100,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
               href={`/api/pdf/contract/${contract.id}`}
               target="_blank"
               rel="noreferrer"
-              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none", display: "inline-flex", alignItems: "center" }}
+              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none", display: "inline-flex", alignItems: "center" }}
             >
               View PDF
             </a>
@@ -109,7 +109,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
             <button
               onClick={() => handleStatus("sent")}
               disabled={isPending}
-              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
+              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
             >
               Mark Sent
             </button>
@@ -118,7 +118,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
             <button
               onClick={() => handleStatus("signed")}
               disabled={isPending}
-              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
+              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
             >
               Mark Signed
             </button>
@@ -127,7 +127,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
             <button
               onClick={() => handleStatus("expired")}
               disabled={isPending}
-              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
+              style={{ background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "10px 16px", minHeight: 44, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: isPending ? "not-allowed" : "pointer" }}
             >
               Mark Expired
             </button>
@@ -136,7 +136,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
       </div>
 
       {error && (
-        <div style={{ background: "var(--red-pale)", border: "1px solid var(--red)", borderRadius: 8, padding: "12px 16px", marginBottom: 16, fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--red)" }}>
+        <div style={{ background: "var(--red-pale)", border: "1px solid var(--red)", borderRadius: 8, padding: "12px 16px", marginBottom: 16, fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--red)" }}>
           {error}
         </div>
       )}
@@ -154,22 +154,22 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
       >
         <div>
           <span style={labelStyle}>Project</span>
-          <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)" }}>{contract.projectName ?? "—"}</p>
+          <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>{contract.projectName ?? "—"}</p>
         </div>
         <div>
           <span style={labelStyle}>Client</span>
-          <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)" }}>{contract.clientName ?? "—"}</p>
+          <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>{contract.clientName ?? "—"}</p>
         </div>
         <div>
           <span style={labelStyle}>Created</span>
-          <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)" }}>
+          <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>
             {contract.createdAt ? new Date(contract.createdAt).toLocaleDateString() : "—"}
           </p>
         </div>
         {contract.sentAt && (
           <div>
             <span style={labelStyle}>Sent</span>
-            <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)" }}>
+            <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>
               {new Date(contract.sentAt).toLocaleDateString()}
             </p>
           </div>
@@ -177,7 +177,7 @@ export function ContractDetailView({ contract }: { contract: ContractDetailData 
         {contract.signedAt && (
           <div>
             <span style={labelStyle}>Signed</span>
-            <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--green)", fontWeight: 500 }}>
+            <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--green)", fontWeight: 500 }}>
               {new Date(contract.signedAt).toLocaleDateString()}
             </p>
           </div>

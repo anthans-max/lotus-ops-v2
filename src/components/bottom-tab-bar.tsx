@@ -115,7 +115,7 @@ export function BottomTabBar() {
             <span
               style={{
                 fontFamily: "var(--font-syne)",
-                fontSize: "0.52rem",
+                fontSize: "0.75rem",
                 fontWeight: isActive ? 700 : 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",

@@ -55,7 +55,7 @@ export function ContractsView({
                 borderRadius: 100,
                 padding: "10px 16px",
                 minHeight: 44,
-                fontSize: "0.68rem",
+                fontSize: "0.875rem",
                 fontFamily: "var(--font-jost)",
                 fontWeight: 500,
                 letterSpacing: "0.06em",
@@ -77,7 +77,7 @@ export function ContractsView({
                 borderRadius: 100,
                 padding: "10px 20px",
                 minHeight: 44,
-                fontSize: "0.72rem",
+                fontSize: "0.875rem",
                 fontFamily: "var(--font-jost)",
                 fontWeight: 500,
                 letterSpacing: "0.08em",
@@ -100,7 +100,7 @@ export function ContractsView({
             padding: "12px 16px",
             marginBottom: 16,
             fontFamily: "var(--font-jost)",
-            fontSize: 13,
+            fontSize: 16,
             color: "var(--red)",
           }}
         >
@@ -124,7 +124,7 @@ export function ContractsView({
           <p
             style={{
               fontFamily: "var(--font-jost)",
-              fontSize: 13,
+              fontSize: 16,
               color: "var(--text-muted)",
               marginBottom: 24,
             }}
@@ -141,7 +141,7 @@ export function ContractsView({
                 borderRadius: 100,
                 padding: "10px 24px",
                 minHeight: 44,
-                fontSize: "0.72rem",
+                fontSize: "0.875rem",
                 fontFamily: "var(--font-jost)",
                 fontWeight: 500,
                 letterSpacing: "0.08em",

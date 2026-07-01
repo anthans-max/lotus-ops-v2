@@ -57,7 +57,7 @@ export function Sidebar({
         <p
           style={{
             fontFamily: "var(--font-syne)",
-            fontSize: "0.6rem",
+            fontSize: "0.6875rem",
             fontWeight: 400,
             letterSpacing: "0.15em",
             textTransform: "uppercase",
@@ -99,7 +99,7 @@ export function Sidebar({
                   background: isActive ? "rgba(255,255,255,0.15)" : "transparent",
                   color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.55)",
                   fontFamily: "var(--font-syne)",
-                  fontSize: "0.62rem",
+                  fontSize: "0.875rem",
                   fontWeight: isActive ? 700 : 500,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
@@ -159,7 +159,7 @@ export function Sidebar({
           <span
             style={{
               fontFamily: "var(--font-jost)",
-              fontSize: 13,
+              fontSize: 16,
               fontWeight: 400,
               color: "rgba(255,255,255,0.7)",
               overflow: "hidden",
@@ -181,7 +181,7 @@ export function Sidebar({
             border: "1px solid rgba(255,255,255,0.2)",
             borderRadius: 100,
             padding: "5px 14px",
-            fontSize: "0.65rem",
+            fontSize: "0.875rem",
             fontFamily: "var(--font-jost)",
             fontWeight: 500,
             letterSpacing: "0.06em",

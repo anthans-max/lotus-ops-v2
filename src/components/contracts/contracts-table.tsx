@@ -19,7 +19,7 @@ function StatusBadge({ status }: { status: string | null }) {
         color: style.color,
         borderRadius: 100,
         padding: "3px 10px",
-        fontSize: "0.6rem",
+        fontSize: "0.75rem",
         fontFamily: "var(--font-syne)",
         fontWeight: 500,
         letterSpacing: "0.1em",
@@ -44,7 +44,7 @@ export function ContractsTable({
   const thStyle: React.CSSProperties = {
     textAlign: "left",
     fontFamily: "var(--font-syne)",
-    fontSize: "0.58rem",
+    fontSize: "0.875rem",
     fontWeight: 500,
     letterSpacing: "0.12em",
     textTransform: "uppercase",
@@ -56,7 +56,7 @@ export function ContractsTable({
   const tdStyle: React.CSSProperties = {
     padding: "14px 12px",
     fontFamily: "var(--font-jost)",
-    fontSize: 13,
+    fontSize: 16,
     color: "var(--text-dim)",
     borderBottom: "1px solid var(--border)",
     verticalAlign: "middle",
@@ -89,7 +89,7 @@ export function ContractsTable({
               <td style={tdStyle}>{c.projectName ?? "—"}</td>
               <td style={tdStyle}>{c.clientName ?? "—"}</td>
               <td style={tdStyle}><StatusBadge status={c.status} /></td>
-              <td style={{ ...tdStyle, fontSize: 12, whiteSpace: "nowrap" }}>
+              <td style={{ ...tdStyle, fontSize: 16, whiteSpace: "nowrap" }}>
                 {c.createdAt ? new Date(c.createdAt).toLocaleDateString() : "—"}
               </td>
               <td style={{ ...tdStyle, whiteSpace: "nowrap" }}>
@@ -103,7 +103,7 @@ export function ContractsTable({
                       borderRadius: 100,
                       padding: "6px 14px",
                       minHeight: 32,
-                      fontSize: "0.65rem",
+                      fontSize: "0.875rem",
                       fontFamily: "var(--font-jost)",
                       fontWeight: 500,
                       letterSpacing: "0.06em",
@@ -123,7 +123,7 @@ export function ContractsTable({
                       borderRadius: 100,
                       padding: "6px 14px",
                       minHeight: 32,
-                      fontSize: "0.65rem",
+                      fontSize: "0.875rem",
                       fontFamily: "var(--font-jost)",
                       fontWeight: 500,
                       letterSpacing: "0.06em",

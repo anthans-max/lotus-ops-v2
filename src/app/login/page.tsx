@@ -49,7 +49,7 @@ export default async function LoginPage() {
         <p
           style={{
             fontFamily: "var(--font-syne)",
-            fontSize: "0.6rem",
+            fontSize: "0.75rem",
             fontWeight: 400,
             letterSpacing: "0.15em",
             textTransform: "uppercase",

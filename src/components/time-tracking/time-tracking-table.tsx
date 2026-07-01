@@ -19,7 +19,7 @@ function StatusBadge({ status }: { status: string | null }) {
         color: style.color,
         borderRadius: 100,
         padding: "3px 10px",
-        fontSize: "0.6rem",
+        fontSize: "0.75rem",
         fontFamily: "var(--font-syne)",
         fontWeight: 500,
         letterSpacing: "0.1em",
@@ -54,7 +54,7 @@ export function TimeTrackingTable({
   const thStyle: React.CSSProperties = {
     textAlign: "left",
     fontFamily: "var(--font-syne)",
-    fontSize: "0.58rem",
+    fontSize: "0.875rem",
     fontWeight: 500,
     letterSpacing: "0.12em",
     textTransform: "uppercase",
@@ -66,7 +66,7 @@ export function TimeTrackingTable({
   const tdStyle: React.CSSProperties = {
     padding: "14px 12px",
     fontFamily: "var(--font-jost)",
-    fontSize: 13,
+    fontSize: 16,
     color: "var(--text-dim)",
     borderBottom: "1px solid var(--border)",
     verticalAlign: "middle",
@@ -110,7 +110,7 @@ export function TimeTrackingTable({
                     />
                   )}
                 </td>
-                <td style={{ ...tdStyle, fontSize: 12, whiteSpace: "nowrap" }}>{e.date}</td>
+                <td style={{ ...tdStyle, fontSize: 16, whiteSpace: "nowrap" }}>{e.date}</td>
                 <td style={{ ...tdStyle, color: "var(--text)", fontWeight: 500 }}>{e.projectName ?? "—"}</td>
                 <td style={tdStyle}>{e.clientName ?? "—"}</td>
                 <td style={tdStyle}>{Number(e.hours).toFixed(2)}</td>
@@ -147,7 +147,7 @@ export function TimeTrackingTable({
                             borderRadius: 100,
                             padding: "6px 14px",
                             minHeight: 32,
-                            fontSize: "0.65rem",
+                            fontSize: "0.875rem",
                             fontFamily: "var(--font-jost)",
                             fontWeight: 500,
                             letterSpacing: "0.06em",
@@ -165,7 +165,7 @@ export function TimeTrackingTable({
                             borderRadius: 100,
                             padding: "6px 14px",
                             minHeight: 32,
-                            fontSize: "0.65rem",
+                            fontSize: "0.875rem",
                             fontFamily: "var(--font-jost)",
                             fontWeight: 500,
                             letterSpacing: "0.06em",
@@ -185,7 +185,7 @@ export function TimeTrackingTable({
                           border: "none",
                           borderRadius: 100,
                           padding: "5px 12px",
-                          fontSize: "0.65rem",
+                          fontSize: "0.875rem",
                           fontFamily: "var(--font-jost)",
                           fontWeight: 500,
                           letterSpacing: "0.06em",
@@ -204,7 +204,7 @@ export function TimeTrackingTable({
                         borderRadius: 100,
                         padding: "6px 14px",
                         minHeight: 32,
-                        fontSize: "0.65rem",
+                        fontSize: "0.875rem",
                         fontFamily: "var(--font-jost)",
                         fontWeight: 500,
                         letterSpacing: "0.06em",

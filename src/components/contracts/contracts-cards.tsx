@@ -19,7 +19,7 @@ function StatusBadge({ status }: { status: string | null }) {
         color: style.color,
         borderRadius: 100,
         padding: "3px 10px",
-        fontSize: "0.6rem",
+        fontSize: "0.75rem",
         fontFamily: "var(--font-syne)",
         fontWeight: 500,
         letterSpacing: "0.1em",
@@ -51,15 +51,15 @@ export function ContractsCards({
             <div>
               <Link
                 href={`/contracts/${c.id}`}
-                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.05rem", fontWeight: 600, color: "var(--green)", textDecoration: "none" }}
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.125rem", fontWeight: 600, color: "var(--green)", textDecoration: "none" }}
               >
                 {c.contractNumber}
               </Link>
-              <p style={{ fontFamily: "var(--font-jost)", fontSize: 13, color: "var(--text)", marginTop: 2 }}>
+              <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)", marginTop: 2 }}>
                 {c.projectName ?? "—"}
               </p>
               {c.clientName && (
-                <p style={{ fontFamily: "var(--font-jost)", fontSize: 12, color: "var(--text-muted)" }}>{c.clientName}</p>
+                <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)" }}>{c.clientName}</p>
               )}
             </div>
             <StatusBadge status={c.status} />
@@ -68,13 +68,13 @@ export function ContractsCards({
           <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
             <Link
               href={`/contracts/${c.id}`}
-              style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "8px 16px", minHeight: 38, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none" }}
+              style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--green)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "8px 16px", minHeight: 38, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", textDecoration: "none" }}
             >
               View
             </Link>
             <button
               onClick={() => onDelete(c)}
-              style={{ flex: 1, background: "var(--red)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "8px 16px", minHeight: 38, fontSize: "0.68rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: "pointer" }}
+              style={{ flex: 1, background: "var(--red)", color: "#FFFFFF", border: "none", borderRadius: 100, padding: "8px 16px", minHeight: 38, fontSize: "0.875rem", fontFamily: "var(--font-jost)", fontWeight: 500, letterSpacing: "0.06em", cursor: "pointer" }}
             >
               Delete
             </button>

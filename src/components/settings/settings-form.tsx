@@ -86,7 +86,7 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
   const labelStyle: React.CSSProperties = {
     display: "block",
     fontFamily: "var(--font-syne)",
-    fontSize: "0.6rem",
+    fontSize: "0.75rem",
     fontWeight: 500,
     letterSpacing: "0.1em",
     textTransform: "uppercase",
@@ -101,7 +101,7 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
     border: "1px solid var(--border-dark)",
     background: "var(--bg)",
     fontFamily: "var(--font-jost)",
-    fontSize: 13,
+    fontSize: 16,
     color: "var(--text)",
     outline: "none",
   };
@@ -116,7 +116,7 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
 
   const sectionTitleStyle: React.CSSProperties = {
     fontFamily: "var(--font-cormorant)",
-    fontSize: "1.1rem",
+    fontSize: "1.125rem",
     fontWeight: 600,
     color: "var(--text)",
     marginBottom: 16,
@@ -186,7 +186,7 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
                   border: "1px solid var(--border-dark)",
                   borderRadius: 100,
                   padding: "8px 16px",
-                  fontSize: "0.68rem",
+                  fontSize: "0.875rem",
                   fontFamily: "var(--font-jost)",
                   fontWeight: 500,
                   letterSpacing: "0.06em",
@@ -340,7 +340,7 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
         <p
           style={{
             fontFamily: "var(--font-jost)",
-            fontSize: 13,
+            fontSize: 16,
             color: "var(--red)",
             marginBottom: 12,
           }}
@@ -353,7 +353,7 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
         <p
           style={{
             fontFamily: "var(--font-jost)",
-            fontSize: 13,
+            fontSize: 16,
             color: "var(--green)",
             marginBottom: 12,
           }}
@@ -372,7 +372,7 @@ export function SettingsForm({ settings }: { settings: AppSettings }) {
           borderRadius: 100,
           padding: "10px 28px",
           minHeight: 44,
-          fontSize: "0.72rem",
+          fontSize: "0.875rem",
           fontFamily: "var(--font-jost)",
           fontWeight: 500,
           letterSpacing: "0.08em",

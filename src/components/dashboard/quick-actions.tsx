@@ -13,7 +13,7 @@ export function QuickActions() {
       <p
         style={{
           fontFamily: "var(--font-syne)",
-          fontSize: "0.58rem",
+          fontSize: "0.75rem",
           fontWeight: 500,
           letterSpacing: "0.12em",
           textTransform: "uppercase",
@@ -34,7 +34,7 @@ export function QuickActions() {
               border: "none",
               borderRadius: 100,
               padding: "8px 16px",
-              fontSize: "0.68rem",
+              fontSize: "0.875rem",
               fontFamily: "var(--font-jost)",
               fontWeight: 500,
               letterSpacing: "0.06em",

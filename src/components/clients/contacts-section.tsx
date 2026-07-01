@@ -91,7 +91,7 @@ export function ContactsSection({
               borderRadius: 100,
               padding: "10px 18px",
               minHeight: 44,
-              fontSize: "0.72rem",
+              fontSize: "0.875rem",
               fontFamily: "var(--font-jost)",
               fontWeight: 500,
               letterSpacing: "0.08em",
@@ -108,7 +108,7 @@ export function ContactsSection({
               padding: "32px 0",
               textAlign: "center",
               fontFamily: "var(--font-jost)",
-              fontSize: 13,
+              fontSize: 16,
               color: "var(--text-muted)",
             }}
           >
@@ -124,7 +124,7 @@ export function ContactsSection({
             <p
               style={{
                 fontFamily: "var(--font-cormorant)",
-                fontSize: "1.1rem",
+                fontSize: "1.125rem",
                 fontWeight: 600,
                 color: "var(--text)",
                 marginBottom: 6,
@@ -135,7 +135,7 @@ export function ContactsSection({
             <p
               style={{
                 fontFamily: "var(--font-jost)",
-                fontSize: 13,
+                fontSize: 16,
                 color: "var(--text-muted)",
               }}
             >
@@ -167,7 +167,7 @@ export function ContactsSection({
                     <span
                       style={{
                         fontFamily: "var(--font-jost)",
-                        fontSize: 13,
+                        fontSize: 16,
                         fontWeight: 600,
                         color: "var(--text)",
                       }}
@@ -182,7 +182,7 @@ export function ContactsSection({
                           color: "var(--green)",
                           borderRadius: 100,
                           padding: "1px 8px",
-                          fontSize: "0.6rem",
+                          fontSize: "0.75rem",
                           fontFamily: "var(--font-syne)",
                           fontWeight: 500,
                           letterSpacing: "0.1em",
@@ -203,7 +203,7 @@ export function ContactsSection({
                         borderRadius: 100,
                         padding: "4px 12px",
                         minHeight: 30,
-                        fontSize: "0.65rem",
+                        fontSize: "0.875rem",
                         fontFamily: "var(--font-jost)",
                         fontWeight: 500,
                         letterSpacing: "0.06em",
@@ -223,7 +223,7 @@ export function ContactsSection({
                         borderRadius: 100,
                         padding: "4px 12px",
                         minHeight: 30,
-                        fontSize: "0.65rem",
+                        fontSize: "0.875rem",
                         fontFamily: "var(--font-jost)",
                         fontWeight: 500,
                         letterSpacing: "0.06em",
@@ -238,7 +238,7 @@ export function ContactsSection({
                   <p
                     style={{
                       fontFamily: "var(--font-jost)",
-                      fontSize: 12,
+                      fontSize: 16,
                       color: "var(--text-muted)",
                       marginBottom: 2,
                     }}
@@ -258,7 +258,7 @@ export function ContactsSection({
                     <span
                       style={{
                         fontFamily: "var(--font-jost)",
-                        fontSize: 12,
+                        fontSize: 16,
                         color: "var(--text-dim)",
                       }}
                     >
@@ -269,7 +269,7 @@ export function ContactsSection({
                     <span
                       style={{
                         fontFamily: "var(--font-jost)",
-                        fontSize: 12,
+                        fontSize: 16,
                         color: "var(--text-dim)",
                       }}
                     >
@@ -286,7 +286,7 @@ export function ContactsSection({
           <p
             style={{
               fontFamily: "var(--font-jost)",
-              fontSize: 13,
+              fontSize: 16,
               color: "var(--red)",
               marginTop: 12,
             }}

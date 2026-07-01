@@ -51,7 +51,7 @@ export function InvoiceSummaryCard({
 
   const labelStyle: React.CSSProperties = {
     fontFamily: "var(--font-syne)",
-    fontSize: "0.58rem",
+    fontSize: "0.75rem",
     fontWeight: 500,
     letterSpacing: "0.12em",
     textTransform: "uppercase",
@@ -65,7 +65,7 @@ export function InvoiceSummaryCard({
     borderRadius: 100,
     padding: "10px 16px",
     minHeight: 44,
-    fontSize: "0.68rem",
+    fontSize: "0.875rem",
     fontFamily: "var(--font-jost)",
     fontWeight: 500,
     letterSpacing: "0.06em",
@@ -97,7 +97,7 @@ export function InvoiceSummaryCard({
           background: "var(--bg)",
           color: "var(--text)",
           fontFamily: "var(--font-jost)",
-          fontSize: 13,
+          fontSize: 16,
           lineHeight: 1.5,
         }}
         placeholder="Click Generate Summary to draft from time entries, or write your own."
@@ -121,7 +121,7 @@ export function InvoiceSummaryCard({
           style={{
             marginTop: 10,
             fontFamily: "var(--font-jost)",
-            fontSize: 12,
+            fontSize: 16,
             color: "var(--red)",
           }}
         >

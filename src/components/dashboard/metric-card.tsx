@@ -30,7 +30,7 @@ export function MetricCard({
       <p
         style={{
           fontFamily: "var(--font-syne)",
-          fontSize: "0.58rem",
+          fontSize: "0.75rem",
           fontWeight: 500,
           letterSpacing: "0.12em",
           textTransform: "uppercase",
@@ -56,7 +56,7 @@ export function MetricCard({
         <p
           style={{
             fontFamily: "var(--font-jost)",
-            fontSize: 12,
+            fontSize: 16,
             color: "var(--text-muted)",
           }}
         >
