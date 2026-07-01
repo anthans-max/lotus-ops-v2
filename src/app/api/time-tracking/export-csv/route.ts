@@ -4,10 +4,19 @@ export const dynamic = "force-dynamic";
 import { db } from "@/db";
 import { timeEntries, projects, clients } from "@/db/schema";
 import { and, asc, eq, gte, lte } from "drizzle-orm";
+import { createClient } from "@/lib/supabase/server";
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 export async function GET(request: Request) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const from = searchParams.get("from");
   const to = searchParams.get("to");
