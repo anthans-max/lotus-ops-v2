@@ -29,7 +29,7 @@ export const appSettings = pgTable("app_settings", {
   defaultPaymentTerms: integer("default_payment_terms").default(30),
   lateFeePercent: numeric("late_fee_percent").default("0"),
   defaultRate: numeric("default_rate").default("0"),
-});
+}).enableRLS();
 
 // ── Clients ─────────────────────────────────────────────────────
 export const clients = pgTable("clients", {
@@ -42,7 +42,7 @@ export const clients = pgTable("clients", {
   status: text("status").default("active"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-});
+}).enableRLS();
 
 // ── Contacts ────────────────────────────────────────────────────
 export const contacts = pgTable("contacts", {
@@ -56,7 +56,7 @@ export const contacts = pgTable("contacts", {
   phone: text("phone"),
   isPrimary: boolean("is_primary").default(false),
   createdAt: timestamp("created_at").defaultNow(),
-});
+}).enableRLS();
 
 // ── Projects ────────────────────────────────────────────────────
 export const projects = pgTable("projects", {
@@ -75,7 +75,7 @@ export const projects = pgTable("projects", {
   endDate: date("end_date"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-});
+}).enableRLS();
 
 // ── Contract Templates ──────────────────────────────────────────
 export const contractTemplates = pgTable("contract_templates", {
@@ -87,7 +87,7 @@ export const contractTemplates = pgTable("contract_templates", {
   version: integer("version").default(1),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-});
+}).enableRLS();
 
 // ── Contracts ───────────────────────────────────────────────────
 export const contracts = pgTable("contracts", {
@@ -105,7 +105,7 @@ export const contracts = pgTable("contracts", {
   sentAt: timestamp("sent_at"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-});
+}).enableRLS();
 
 // ── Time Entries ────────────────────────────────────────────────
 export const timeEntries = pgTable("time_entries", {
@@ -121,7 +121,7 @@ export const timeEntries = pgTable("time_entries", {
   invoiceId: uuid("invoice_id"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-});
+}).enableRLS();
 
 // ── Invoices ────────────────────────────────────────────────────
 export const invoices = pgTable("invoices", {
@@ -142,7 +142,7 @@ export const invoices = pgTable("invoices", {
   summary: text("summary"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-});
+}).enableRLS();
 
 // ── Invoice Line Items ──────────────────────────────────────────
 export const invoiceLineItems = pgTable("invoice_line_items", {
@@ -156,4 +156,4 @@ export const invoiceLineItems = pgTable("invoice_line_items", {
   amount: numeric("amount").notNull(),
   timeEntryId: uuid("time_entry_id"),
   createdAt: timestamp("created_at").defaultNow(),
-});
+}).enableRLS();
