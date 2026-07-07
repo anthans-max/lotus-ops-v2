@@ -36,6 +36,20 @@
       "when": 1777652026094,
       "tag": "0004_thankful_sleepwalker",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1783449832939,
+      "tag": "0005_adorable_pyro",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1783451918044,
+      "tag": "0006_drop_authenticated_policies",
+      "breakpoints": true
     }
   ]
 }
