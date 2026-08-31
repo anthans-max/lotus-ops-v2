@@ -15,6 +15,7 @@ import {
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { InvoiceSummaryCard } from "@/components/invoices/invoice-summary-card";
 import { InvoiceForm, type ClientOption, type ProjectOption } from "@/components/invoices/invoice-form";
+import { formatMoney } from "@/lib/money";
 
 function StatusBadge({ status }: { status: string | null }) {
   const map: Record<string, { bg: string; color: string }> = {
@@ -480,14 +481,14 @@ export function InvoiceDetailView({
         <div>
           <span style={labelStyle}>Total</span>
           <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, fontWeight: 600, color: "var(--text)" }}>
-            ${Number(invoice.total ?? 0).toFixed(2)}
+            {formatMoney(invoice.total)}
           </p>
         </div>
         {Number(invoice.paidAmount) > 0 && (
           <div>
             <span style={labelStyle}>Paid</span>
             <p style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--green)", fontWeight: 500 }}>
-              ${Number(invoice.paidAmount).toFixed(2)}
+              {formatMoney(invoice.paidAmount)}
             </p>
           </div>
         )}
@@ -521,8 +522,8 @@ export function InvoiceDetailView({
                 <tr key={item.id}>
                   <td style={tdStyle}>{item.description}</td>
                   <td style={{ ...tdStyle, textAlign: "right" }}>{Number(item.quantity ?? 1).toFixed(2)}</td>
-                  <td style={{ ...tdStyle, textAlign: "right" }}>${Number(item.rate).toFixed(2)}</td>
-                  <td style={{ ...tdStyle, textAlign: "right" }}>${Number(item.amount).toFixed(2)}</td>
+                  <td style={{ ...tdStyle, textAlign: "right" }}>{formatMoney(item.rate)}</td>
+                  <td style={{ ...tdStyle, textAlign: "right" }}>{formatMoney(item.amount)}</td>
                 </tr>
               ))}
             </tbody>
@@ -533,27 +534,28 @@ export function InvoiceDetailView({
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, marginTop: 12 }}>
           <div style={{ display: "flex", justifyContent: "space-between", width: 220 }}>
             <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)" }}>Subtotal</span>
-            <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>${Number(invoice.subtotal ?? 0).toFixed(2)}</span>
+            <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>{formatMoney(invoice.subtotal)}</span>
           </div>
-          {Number(invoice.taxAmount) > 0 && (
+          {/* !== 0 so a credit-note invoice (negative subtotal) still shows its tax row. */}
+          {Number(invoice.taxAmount) !== 0 && (
             <div style={{ display: "flex", justifyContent: "space-between", width: 220 }}>
               <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)" }}>{invoice.taxName}</span>
-              <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>${Number(invoice.taxAmount).toFixed(2)}</span>
+              <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)" }}>{formatMoney(invoice.taxAmount)}</span>
             </div>
           )}
           <div style={{ display: "flex", justifyContent: "space-between", width: 220, borderTop: "1px solid var(--border)", paddingTop: 6 }}>
             <span style={{ fontFamily: "var(--font-jost)", fontSize: 18, fontWeight: 600, color: "var(--text)" }}>Total</span>
-            <span style={{ fontFamily: "var(--font-jost)", fontSize: 18, fontWeight: 600, color: "var(--text)" }}>${Number(invoice.total ?? 0).toFixed(2)}</span>
+            <span style={{ fontFamily: "var(--font-jost)", fontSize: 18, fontWeight: 600, color: "var(--text)" }}>{formatMoney(invoice.total)}</span>
           </div>
           {Number(invoice.paidAmount) > 0 && (
             <>
               <div style={{ display: "flex", justifyContent: "space-between", width: 220 }}>
                 <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--green)" }}>Paid</span>
-                <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--green)" }}>${Number(invoice.paidAmount).toFixed(2)}</span>
+                <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--green)" }}>{formatMoney(invoice.paidAmount)}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", width: 220 }}>
                 <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, fontWeight: 600, color: "var(--red)" }}>Balance Due</span>
-                <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, fontWeight: 600, color: "var(--red)" }}>${(Number(invoice.total) - Number(invoice.paidAmount)).toFixed(2)}</span>
+                <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, fontWeight: 600, color: "var(--red)" }}>{formatMoney(Number(invoice.total) - Number(invoice.paidAmount))}</span>
               </div>
             </>
           )}

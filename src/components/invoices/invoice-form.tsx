@@ -4,6 +4,7 @@ import { useState, useTransition, useEffect } from "react";
 import { Dialog } from "@/components/ui/dialog";
 import { createInvoice, updateInvoice } from "@/app/actions/invoices";
 import { getApprovedTimeEntriesForProject, type TimeEntry } from "@/app/actions/time-entries";
+import { formatMoney } from "@/lib/money";
 
 export type ClientOption = { id: string; name: string; paymentTerms: number | null };
 export type ProjectOption = { id: string; name: string; clientId: string | null; defaultRate: string | null };
@@ -324,17 +325,17 @@ export function InvoiceForm({
                       placeholder="1"
                       style={inputStyle}
                     />
+                    {/* No min — a negative rate is how discount lines are entered. */}
                     <input
                       type="number"
                       step="0.01"
-                      min="0"
                       value={item.rate}
                       onChange={(e) => updateLineItem(item._key, "rate", e.target.value)}
                       placeholder="0.00"
                       style={inputStyle}
                     />
                     <span style={{ fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text)", padding: "0 4px" }}>
-                      ${amount.toFixed(2)}
+                      {formatMoney(amount)}
                     </span>
                     <button
                       type="button"
@@ -380,17 +381,17 @@ export function InvoiceForm({
           <div style={{ borderTop: "1px solid var(--border)", paddingTop: 12, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4 }}>
             <div style={{ display: "flex", justifyContent: "space-between", width: 220, fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)" }}>
               <span>Subtotal</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>{formatMoney(subtotal)}</span>
             </div>
             {Number(taxRate) > 0 && (
               <div style={{ display: "flex", justifyContent: "space-between", width: 220, fontFamily: "var(--font-jost)", fontSize: 16, color: "var(--text-muted)" }}>
                 <span>Tax ({taxRate}%)</span>
-                <span>${taxAmount.toFixed(2)}</span>
+                <span>{formatMoney(taxAmount)}</span>
               </div>
             )}
             <div style={{ display: "flex", justifyContent: "space-between", width: 220, fontFamily: "var(--font-jost)", fontSize: 18, fontWeight: 600, color: "var(--text)", borderTop: "1px solid var(--border)", paddingTop: 4 }}>
               <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span>{formatMoney(total)}</span>
             </div>
           </div>
 
