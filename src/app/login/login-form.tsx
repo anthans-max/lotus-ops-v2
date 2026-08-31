@@ -2,13 +2,25 @@
 
 import { createClient } from "@/lib/supabase/client";
 
+// Supabase silently falls back to the project's shared "Site URL" (which points
+// at a sibling app) whenever redirectTo is not an exact match for an entry in
+// the redirect allow-list. window.location.origin is whatever host the browser
+// happens to be on -- a *.vercel.app deployment/preview domain, a bare apex, an
+// IP in dev -- so pin the canonical origins that are actually allow-listed.
+const SITE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://ops.getlotusai.com";
+
+const OAUTH_REDIRECT_TO = `${SITE_URL}/auth/callback`;
+
 export function LoginForm() {
   const handleLogin = async () => {
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: OAUTH_REDIRECT_TO,
       },
     });
   };
